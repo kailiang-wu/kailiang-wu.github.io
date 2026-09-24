@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Structure-Preserving Methods: Design and Analysis | Kailiang Wu – Kailiang Wu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-1e1e4f9f09d3f588d6eb110a00621815.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<meta name="color-scheme" content="light">
+
+
+<link rel="stylesheet" href="styles.css?v=20260924-11">
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+
+
+    
+
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Structure-Preserving Methods: Design and Analysis | Kailiang Wu</h1></header>
+
+<a class="skip-link" href="#quarto-content">Skip to content</a>
+<header class="site-header">
+  <img class="portrait" src="assets/kailiang-wu.jpeg" alt="Kailiang Wu" width="124" height="153">
+  <div class="identity">
+    <a class="identity-name" href="index.html">Kailiang Wu</a>
+    <p class="position">Professor of Mathematics</p>
+    <p class="affiliation"><span class="institution-line">Southern University of</span> <span class="institution-line">Science and Technology</span></p>
+    <p class="profile-location">Shenzhen, China</p>
+    <p class="header-contact"><span class="contact-label">Email:</span> <span class="email-address">wukl@sustech.edu.cn</span></p>
+  </div>
+</header>
+<nav class="site-nav" aria-label="Main navigation">
+  <a data-page="home" href="index.html">Home</a>
+  <a data-page="publications" href="publications.html">Publications</a>
+  <a data-page="group" href="group.html">Group</a>
+  <a data-page="teaching" href="teaching.html">Teaching</a>
+  <a data-page="news" href="news.html">News</a>
+  <a data-page="contact" href="contact.html">Contact</a>
+  <span class="language-switch" role="group" aria-label="Language" data-no-translate="">
+    <button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+    <span aria-hidden="true">/</span>
+    <button type="button" data-language="zh" lang="zh-CN" aria-label="中文" aria-pressed="false">中文</button>
+  </span>
+</nav>
+<script>
+(function () {
+  var file = window.location.pathname.split('/').pop() || 'index.html';
+  var group = {'index.html':'home','selected.html':'publications','publications.html':'publications','publications-by-topic.html':'publications','news.html':'news','group.html':'group','contact.html':'contact','cv.html':'cv','teaching.html':'teaching'}[file];
+  if (file.indexOf('publications-topic-') === 0) group = 'publications';
+  document.body.dataset.page = group || '';
+  function updateNavigation() {
+    var current = group;
+    document.querySelectorAll('.site-nav a').forEach(function (a) {
+      if (a.dataset.page === current) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  updateNavigation();
+  window.addEventListener('hashchange', updateNavigation);
+})();
+</script>
+
+<header id="title-block-header">
+
+
+</header>
+
+
+<nav class="publication-nav" aria-label="Publication views">
+<a href="selected.html">Selected</a> <a href="publications.html">By year</a> <a href="publications-by-topic.html">By topic</a>
+</nav>
+<script>
+(function(){
+var file=window.location.pathname.split('/').pop();
+if(file.indexOf('publications-topic-')===0)file='publications-by-topic.html';
+document.querySelectorAll('.publication-nav a').forEach(function(a){if(a.getAttribute('href')===file)a.setAttribute('aria-current','page');});
+})();
+</script>
+<p><a href="./publications-by-topic.html">← All topics</a></p>
+<section class="level1">
+<h1>Structure-Preserving Methods: Design and Analysis</h1>
+<div class="publication-list">
+<div id="pub-2026-provably-positivity-preserving-globally-divergence-free-central-dg-methods-for-ideal-mhd" class="publication-entry" data-year="2026" data-publication-id="pub-2026-provably-positivity-preserving-globally-divergence-free-central-dg-methods-for-ideal-mhd">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2508.08913"><strong>Provably positivity-preserving, globally divergence-free central DG methods for ideal MHD system</strong></a>
+</div>
+<div class="publication-authors">
+R. Yan, H. Cao, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Math. Models Methods Appl. Sci. (M3AS)</span>, 2026. <span class="publication-status">Accepted</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2508.08913" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-provably-positivity-preserving-globally-divergence-free-central-dg-methods-for-ideal-mhd.bib" download="pub-2026-provably-positivity-preserving-globally-divergence-free-central-dg-methods-for-ideal-mhd.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026provablypositivitypreservinggloballydivergencefreecentraldgmethodsforidealmhd,
+  author = {Ruifang Yan and Huihui Cao and Kailiang Wu},
+  title = {{Provably positivity-preserving, globally divergence-free central DG methods for ideal MHD system}},
+  journal = {Math. Models Methods Appl. Sci. (M3AS)},
+  year = {2026},
+  eprint = {2508.08913},
+  archivePrefix = {arXiv},
+  note = {Accepted},
+  url = {https://arxiv.org/abs/2508.08913}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-cos-sv-convex-oscillation-suppressing-spectral-volume-schemes-with-bound-preservation-for" class="publication-entry" data-year="2026" data-publication-id="pub-2026-cos-sv-convex-oscillation-suppressing-spectral-volume-schemes-with-bound-preservation-for">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2026.115411"><strong>COS(SV): Convex Oscillation-Suppressing Spectral Volume Schemes with Bound Preservation for Hyperbolic Conservation Laws</strong></a>
+</div>
+<div class="publication-authors">
+R. Yan, H. Cao, N. Liu*, and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2026. <span class="publication-status">Accepted</span>
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2026.115411" target="_blank" rel="noopener">Paper</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-cos-sv-convex-oscillation-suppressing-spectral-volume-schemes-with-bound-preservation-for.bib" download="pub-2026-cos-sv-convex-oscillation-suppressing-spectral-volume-schemes-with-bound-preservation-for.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026cossvconvexoscillationsuppressingspectralvolumeschemeswithboundpreservationfor,
+  author = {Ruifang Yan and Huihui Cao and Na Liu and Kailiang Wu},
+  title = {{COS(SV): Convex Oscillation-Suppressing Spectral Volume Schemes with Bound Preservation for Hyperbolic Conservation Laws}},
+  journal = {Journal of Computational Physics},
+  year = {2026},
+  pages = {115411},
+  doi = {10.1016/j.jcp.2026.115411},
+  note = {Accepted},
+  url = {https://doi.org/10.1016/j.jcp.2026.115411}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-an-active-flux-type-scheme-for-ideal-mhd-with-provable-positivity-and" class="publication-entry" data-year="2026" data-publication-id="pub-2026-an-active-flux-type-scheme-for-ideal-mhd-with-provable-positivity-and">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2026.115319"><strong>An active-flux-type scheme for ideal MHD with provable positivity and a point-value-level discrete divergence-free constraint</strong></a>
+</div>
+<div class="publication-authors">
+M. Liu, D. Pang, R. Abgrall, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2026. <span class="publication-status">In press</span>
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2026.115319" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2510.19721" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-an-active-flux-type-scheme-for-ideal-mhd-with-provable-positivity-and.bib" download="pub-2026-an-active-flux-type-scheme-for-ideal-mhd-with-provable-positivity-and.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026anactivefluxtypeschemeforidealmhdwithprovablepositivityand,
+  author = {Mengqing Liu and Dongwen Pang and Remi Abgrall and Kailiang Wu},
+  title = {{An active-flux-type scheme for ideal MHD with provable positivity and a point-value-level discrete divergence-free constraint}},
+  journal = {Journal of Computational Physics},
+  year = {2026},
+  doi = {10.1016/j.jcp.2026.115319},
+  eprint = {2510.19721},
+  archivePrefix = {arXiv},
+  note = {In press},
+  url = {https://doi.org/10.1016/j.jcp.2026.115319}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-gql-based-physical-constraint-preserving-high-order-finite-difference-schemes-for-special" class="publication-entry" data-year="2026" data-publication-id="pub-2026-gql-based-physical-constraint-preserving-high-order-finite-difference-schemes-for-special">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2606.31992"><strong>GQL-based physical-constraint-preserving high-order finite difference schemes for special relativistic hydrodynamics in arbitrary dimensions</strong></a>
+</div>
+<div class="publication-authors">
+L. Xu, S. Ding, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2026. <span class="publication-status">Accepted</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2606.31992" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-gql-based-physical-constraint-preserving-high-order-finite-difference-schemes-for-special.bib" download="pub-2026-gql-based-physical-constraint-preserving-high-order-finite-difference-schemes-for-special.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026gqlbasedphysicalconstraintpreservinghighorderfinitedifferenceschemesforspecial,
+  author = {Linfeng Xu and Shengrong Ding and Kailiang Wu},
+  title = {{GQL-based physical-constraint-preserving high-order finite difference schemes for special relativistic hydrodynamics in arbitrary dimensions}},
+  journal = {Journal of Computational Physics},
+  year = {2026},
+  eprint = {2606.31992},
+  archivePrefix = {arXiv},
+  note = {Accepted},
+  url = {https://arxiv.org/abs/2606.31992}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-high-order-positivity-preserving-and-globally-divergence-free-discontinuous-galerkin-methods-for" class="publication-entry" data-year="2026" data-publication-id="pub-2026-high-order-positivity-preserving-and-globally-divergence-free-discontinuous-galerkin-methods-for">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2026.115031"><strong>High-order positivity-preserving and globally divergence-free discontinuous Galerkin methods for ideal magnetohydrodynamics with conditional energy conservation</strong></a>
+</div>
+<div class="publication-authors">
+M. Liu, <strong>K. Wu</strong>, and C. Yuan*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2026.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2026.115031" target="_blank" rel="noopener">Paper</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-high-order-positivity-preserving-and-globally-divergence-free-discontinuous-galerkin-methods-for.bib" download="pub-2026-high-order-positivity-preserving-and-globally-divergence-free-discontinuous-galerkin-methods-for.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026highorderpositivitypreservingandgloballydivergencefreediscontinuousgalerkinmethodsfor,
+  author = {Mengqing Liu and Kailiang Wu and Caiyou Yuan},
+  title = {{High-order positivity-preserving and globally divergence-free discontinuous Galerkin methods for ideal magnetohydrodynamics with conditional energy conservation}},
+  journal = {Journal of Computational Physics},
+  year = {2026},
+  volume = {562},
+  pages = {115031},
+  doi = {10.1016/j.jcp.2026.115031},
+  url = {https://doi.org/10.1016/j.jcp.2026.115031}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-high-order-numerical-methods-preserving-invariant-domain-for-hyperbolic-and-related-systems" class="publication-entry" data-year="2026" data-publication-id="pub-2026-high-order-numerical-methods-preserving-invariant-domain-for-hyperbolic-and-related-systems">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2512.09116"><strong>High order numerical methods preserving invariant domain for hyperbolic and related systems</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong>, X. Zhang, and C.-W. Shu
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Review</span>, 2026. <span class="publication-status">In press</span>
+</div>
+<div class="publication-tools"><a href="https://www.math.purdue.edu/~zhan1966/research/paper/SIREV.pdf" target="_blank" rel="noopener">PDF</a>
+<a href="https://arxiv.org/abs/2512.09116" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-high-order-numerical-methods-preserving-invariant-domain-for-hyperbolic-and-related-systems.bib" download="pub-2026-high-order-numerical-methods-preserving-invariant-domain-for-hyperbolic-and-related-systems.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026highordernumericalmethodspreservinginvariantdomainforhyperbolicandrelatedsystems,
+  author = {Kailiang Wu and Xiangxiong Zhang and Chi-Wang Shu},
+  title = {{High order numerical methods preserving invariant domain for hyperbolic and related systems}},
+  journal = {SIAM Review},
+  year = {2026},
+  eprint = {2512.09116},
+  archivePrefix = {arXiv},
+  note = {In press},
+  url = {https://arxiv.org/abs/2512.09116}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-high-order-accurate-bound-preserving-adaptive-moving-mesh-finite-volume-methods-for" class="publication-entry" data-year="2026" data-publication-id="pub-2026-high-order-accurate-bound-preserving-adaptive-moving-mesh-finite-volume-methods-for">
+<div class="publication-title">
+<strong>High-order accurate bound-preserving adaptive moving mesh finite volume methods for 2D and 3D special relativistic hydrodynamics</strong>
+</div>
+<div class="publication-authors">
+C. Yuan, Z. Zhang, H. Tang, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2026.
+</div>
+<div class="publication-tools"><details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-high-order-accurate-bound-preserving-adaptive-moving-mesh-finite-volume-methods-for.bib" download="pub-2026-high-order-accurate-bound-preserving-adaptive-moving-mesh-finite-volume-methods-for.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026highorderaccurateboundpreservingadaptivemovingmeshfinitevolumemethodsfor,
+  author = {C. Yuan and Z. Zhang and H. Tang and K. Wu},
+  title = {{High-order accurate bound-preserving adaptive moving mesh finite volume methods for 2D and 3D special relativistic hydrodynamics}},
+  journal = {Journal of Computational Physics},
+  year = {2026},
+  volume = {554},
+  pages = {114728}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-on-energy-laws-and-stability-of-first-subdiagonal-pade-approximants-for-linear" class="publication-entry" data-year="2026" data-publication-id="pub-2026-on-energy-laws-and-stability-of-first-subdiagonal-pade-approximants-for-linear">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2608.09239"><strong>On energy laws and stability of first-subdiagonal Padé approximants for linear seminegative problems</strong></a>
+</div>
+<div class="publication-authors">
+M. Jiao, Z. Sun, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Information and Computing Science</span>, 2026. <span class="publication-status">Accepted</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2608.09239" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-on-energy-laws-and-stability-of-first-subdiagonal-pade-approximants-for-linear.bib" download="pub-2026-on-energy-laws-and-stability-of-first-subdiagonal-pade-approximants-for-linear.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026onenergylawsandstabilityoffirstsubdiagonalpadeapproximantsforlinear,
+  author = {Miaosen Jiao and Zheng Sun and Kailiang Wu},
+  title = {{On energy laws and stability of first-subdiagonal Pad{\'e} approximants for linear seminegative problems}},
+  journal = {Journal of Information and Computing Science},
+  year = {2026},
+  eprint = {2608.09239},
+  archivePrefix = {arXiv},
+  note = {Accepted},
+  url = {https://arxiv.org/abs/2608.09239}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-arxiv-2609-26791" class="publication-entry" data-year="2026" data-publication-id="pub-arxiv-2609-26791">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2609.26791"><strong>Fully Discrete Multi-Entropy Stability of High-Order Schemes for Compressible MHD: A Weak-to-Strong Framework</strong></a>
+</div>
+<div class="publication-authors">
+H. Cao, <strong>K. Wu</strong>, and C. Yuan
+</div>
+<div class="publication-venue">
+<span class="publication-journal">arXiv</span>, 2026. <span class="publication-status">Preprint</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2609.26791" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-arxiv-2609-26791.bib" download="pub-arxiv-2609-26791.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@misc{pubarxiv260926791,
+  author = {Huihui Cao and Kailiang Wu and Caiyou Yuan},
+  title = {{Fully Discrete Multi-Entropy Stability of High-Order Schemes for Compressible MHD: A Weak-to-Strong Framework}},
+  year = {2026},
+  eprint = {2609.26791},
+  archivePrefix = {arXiv},
+  note = {Preprint},
+  url = {https://arxiv.org/abs/2609.26791}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-arxiv-2609-10476" class="publication-entry" data-year="2026" data-publication-id="pub-arxiv-2609-10476">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2609.10476"><strong>Invariant domain preservation for hybrid point-value and cell-average discretizations of hyperbolic equations on general meshes</strong></a>
+</div>
+<div class="publication-authors">
+S. Ding, S. Cui, R. Abgrall, and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">arXiv</span>, 2026. <span class="publication-status">Preprint</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2609.10476" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-arxiv-2609-10476.bib" download="pub-arxiv-2609-10476.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@misc{pubarxiv260910476,
+  author = {Shengrong Ding and Shumo Cui and Remi Abgrall and Kailiang Wu},
+  title = {{Invariant domain preservation for hybrid point-value and cell-average discretizations of hyperbolic equations on general meshes}},
+  year = {2026},
+  eprint = {2609.10476},
+  archivePrefix = {arXiv},
+  note = {Preprint},
+  url = {https://arxiv.org/abs/2609.10476}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-arxiv-2608-09327" class="publication-entry" data-year="2026" data-publication-id="pub-arxiv-2608-09327">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2608.09327"><strong>High-order fully discrete multi-entropy-stable and bound-preserving schemes for relativistic Euler equations</strong></a>
+</div>
+<div class="publication-authors">
+L. Xu and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">arXiv</span>, 2026. <span class="publication-status">Preprint</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2608.09327" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-arxiv-2608-09327.bib" download="pub-arxiv-2608-09327.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@misc{pubarxiv260809327,
+  author = {Linfeng Xu and Kailiang Wu},
+  title = {{High-order fully discrete multi-entropy-stable and bound-preserving schemes for relativistic Euler equations}},
+  year = {2026},
+  eprint = {2608.09327},
+  archivePrefix = {arXiv},
+  note = {Preprint},
+  url = {https://arxiv.org/abs/2608.09327}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-arxiv-2607-19283" class="publication-entry" data-year="2026" data-publication-id="pub-arxiv-2607-19283">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2607.19283"><strong>Structure of ENO Entropy Dissipation: Parity Dichotomy for the ENO–TV Conjecture and Shift Cohomology</strong></a>
+</div>
+<div class="publication-authors">
+Z. Li and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">arXiv</span>, 2026. <span class="publication-status">Preprint</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2607.19283" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-arxiv-2607-19283.bib" download="pub-arxiv-2607-19283.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@misc{pubarxiv260719283,
+  author = {Zhuoyun Li and Kailiang Wu},
+  title = {{Structure of ENO Entropy Dissipation: Parity Dichotomy for the ENO--TV Conjecture and Shift Cohomology}},
+  year = {2026},
+  eprint = {2607.19283},
+  archivePrefix = {arXiv},
+  note = {Preprint},
+  url = {https://arxiv.org/abs/2607.19283}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-arxiv-2604-00301" class="publication-entry" data-year="2026" data-publication-id="pub-arxiv-2604-00301">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2604.00301"><strong>EPO: A Unified Framework for Entropy Stability, Positivity, and Oscillation Suppression</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">arXiv</span>, 2026. <span class="publication-status">Preprint</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2604.00301" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-arxiv-2604-00301.bib" download="pub-arxiv-2604-00301.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@misc{pubarxiv260400301,
+  author = {Kailiang Wu},
+  title = {{EPO: A Unified Framework for Entropy Stability, Positivity, and Oscillation Suppression}},
+  year = {2026},
+  eprint = {2604.00301},
+  archivePrefix = {arXiv},
+  note = {Preprint},
+  url = {https://arxiv.org/abs/2604.00301}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-provably-positivity-preserving-constrained-transport-scheme-for-2d-and-3d-ideal-magnetohydrodynamics" class="publication-entry" data-year="2025" data-publication-id="pub-2025-provably-positivity-preserving-constrained-transport-scheme-for-2d-and-3d-ideal-magnetohydrodynamics">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2410.05173"><strong>Provably positivity-preserving constrained transport scheme for 2D and 3D ideal magnetohydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+D. Pang and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2410.05173" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-provably-positivity-preserving-constrained-transport-scheme-for-2d-and-3d-ideal-magnetohydrodynamics.bib" download="pub-2025-provably-positivity-preserving-constrained-transport-scheme-for-2d-and-3d-ideal-magnetohydrodynamics.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025provablypositivitypreservingconstrainedtransportschemefor2dand3didealmagnetohydrodynamics,
+  author = {Dongwen Pang and Kailiang Wu},
+  title = {{Provably positivity-preserving constrained transport scheme for 2D and 3D ideal magnetohydrodynamics}},
+  journal = {Journal of Computational Physics},
+  year = {2025},
+  volume = {541},
+  pages = {114312},
+  eprint = {2410.05173},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2410.05173}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-bound-preserving-point-average-moment-polynomial-interpreted-pampa-scheme-one-dimensional-case" class="publication-entry" data-year="2025" data-publication-id="pub-2025-bound-preserving-point-average-moment-polynomial-interpreted-pampa-scheme-one-dimensional-case">
+<div class="publication-title">
+<a href="https://doi.org/10.4208/cicp.oa-2024-0266"><strong>Bound-preserving Point-Average-Moment PolynomiAl-interpreted (PAMPA) scheme: One-dimensional case</strong></a>
+</div>
+<div class="publication-authors">
+R. Abgrall, M. Jiao, Y. Liu, and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Communications in Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.4208/cicp.oa-2024-0266" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2410.14292" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-bound-preserving-point-average-moment-polynomial-interpreted-pampa-scheme-one-dimensional-case.bib" download="pub-2025-bound-preserving-point-average-moment-polynomial-interpreted-pampa-scheme-one-dimensional-case.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025boundpreservingpointaveragemomentpolynomialinterpretedpampaschemeonedimensionalcase,
+  author = {R{\'e}mi Abgrall and Miaosen Jiao and Yongle Liu and Kailiang Wu},
+  title = {{Bound-preserving Point-Average-Moment PolynomiAl-interpreted (PAMPA) scheme: One-dimensional case}},
+  journal = {Communications in Computational Physics},
+  year = {2025},
+  volume = {39},
+  number = {1},
+  pages = {29-58},
+  doi = {10.4208/cicp.oa-2024-0266},
+  eprint = {2410.14292},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.4208/cicp.oa-2024-0266}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-constraint-preserving-high-order-compact-oedg-method-for-spherically-symmetric-einstein-euler" class="publication-entry" data-year="2025" data-publication-id="pub-2025-constraint-preserving-high-order-compact-oedg-method-for-spherically-symmetric-einstein-euler">
+<div class="publication-title">
+<a href="https://doi.org/10.4208/cmr.2025-0052"><strong>Constraint-Preserving High-Order Compact OEDG Method for Spherically Symmetric Einstein-Euler System</strong></a>
+</div>
+<div class="publication-authors">
+Y. Huang, M. Peng, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Communications in Mathematical Research</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.4208/cmr.2025-0052" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2512.03496" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-constraint-preserving-high-order-compact-oedg-method-for-spherically-symmetric-einstein-euler.bib" download="pub-2025-constraint-preserving-high-order-compact-oedg-method-for-spherically-symmetric-einstein-euler.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025constraintpreservinghighordercompactoedgmethodforsphericallysymmetriceinsteineuler,
+  author = {Yuchen Huang and Manting Peng and Kailiang Wu},
+  title = {{Constraint-Preserving High-Order Compact OEDG Method for Spherically Symmetric Einstein-Euler System}},
+  journal = {Communications in Mathematical Research},
+  year = {2025},
+  volume = {41},
+  number = {4},
+  pages = {370--414},
+  doi = {10.4208/cmr.2025-0052},
+  eprint = {2512.03496},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.4208/cmr.2025-0052}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-physical-constraint-preserving-high-order-finite-volume-weno-method-via-geometric-quasilinearization" class="publication-entry" data-year="2025" data-publication-id="pub-2025-physical-constraint-preserving-high-order-finite-volume-weno-method-via-geometric-quasilinearization">
+<div class="publication-title">
+<strong>Physical-constraint-preserving high-order finite volume WENO method via geometric quasilinearization for Chaplygin gas dynamics</strong>
+</div>
+<div class="publication-authors">
+L. Y. Win, Y. Chen, Y. Nie, L. Cai, <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Scientific Computing</span>, 2025.
+</div>
+<div class="publication-tools"><details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-physical-constraint-preserving-high-order-finite-volume-weno-method-via-geometric-quasilinearization.bib" download="pub-2025-physical-constraint-preserving-high-order-finite-volume-weno-method-via-geometric-quasilinearization.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025physicalconstraintpreservinghighorderfinitevolumewenomethodviageometricquasilinearization,
+  author = {L. Y. Win and Y. Chen and Y. Nie and L. Cai and K. Wu},
+  title = {{Physical-constraint-preserving high-order finite volume WENO method via geometric quasilinearization for Chaplygin gas dynamics}},
+  journal = {Journal of Scientific Computing},
+  year = {2025},
+  volume = {105},
+  pages = {33}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-arxiv-2510-18380" class="publication-entry" data-year="2025" data-publication-id="pub-arxiv-2510-18380">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2510.18380"><strong>Provably realizability-preserving finite volume method for quadrature-based moment models of kinetic equations</strong></a>
+</div>
+<div class="publication-authors">
+C. Fan, Q. Huang, and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">arXiv</span>, 2025. <span class="publication-status">Preprint</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2510.18380" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-arxiv-2510-18380.bib" download="pub-arxiv-2510-18380.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@misc{pubarxiv251018380,
+  author = {Chuan Fan and Qian Huang and Kailiang Wu},
+  title = {{Provably realizability-preserving finite volume method for quadrature-based moment models of kinetic equations}},
+  year = {2025},
+  eprint = {2510.18380},
+  archivePrefix = {arXiv},
+  note = {Preprint},
+  url = {https://arxiv.org/abs/2510.18380}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-arxiv-2510-04123" class="publication-entry" data-year="2025" data-publication-id="pub-arxiv-2510-04123">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2510.04123"><strong>Bound-Preserving WENO Schemes for Temple-class systems</strong></a>
+</div>
+<div class="publication-authors">
+W. Chen, S. Cui, <strong>K. Wu</strong>, T. Xiong, and B. Yu
+</div>
+<div class="publication-venue">
+<span class="publication-journal">arXiv</span>, 2025. <span class="publication-status">Preprint</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2510.04123" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-arxiv-2510-04123.bib" download="pub-arxiv-2510-04123.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@misc{pubarxiv251004123,
+  author = {Wei Chen and Shumo Cui and Kailiang Wu and Tao Xiong and Baoyue Yu},
+  title = {{Bound-Preserving WENO Schemes for Temple-class systems}},
+  year = {2025},
+  eprint = {2510.04123},
+  archivePrefix = {arXiv},
+  note = {Preprint},
+  url = {https://arxiv.org/abs/2510.04123}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-on-local-minimum-entropy-principle-of-high-order-schemes" class="publication-entry" data-year="2025" data-publication-id="pub-2025-on-local-minimum-entropy-principle-of-high-order-schemes">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2503.12465"><strong>On local minimum entropy principle of high-order schemes for relativistic Euler equations</strong></a>
+</div>
+<div class="publication-authors">
+S. Cui, <strong>K. Wu</strong>*, and L. Xu
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Mathematics of Computation</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2503.12465" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-on-local-minimum-entropy-principle-of-high-order-schemes.bib" download="pub-2025-on-local-minimum-entropy-principle-of-high-order-schemes.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025onlocalminimumentropyprincipleofhighorderschemes,
+  author = {Shumo Cui and Kailiang Wu and Linfeng Xu},
+  title = {{On local minimum entropy principle of high-order schemes for relativistic Euler equations}},
+  journal = {Mathematics of Computation},
+  year = {2025},
+  eprint = {2503.12465},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2503.12465}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-a-novel-and-simple-invariant-domain-preserving-framework-for" class="publication-entry" data-year="2025" data-publication-id="pub-2025-a-novel-and-simple-invariant-domain-preserving-framework-for">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2412.03423"><strong>A novel and simple invariant-domain-preserving framework for PAMPA scheme: 1D case</strong></a>
+</div>
+<div class="publication-authors">
+R. Abgrall, M. Jiao, Y. Liu, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2412.03423" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-a-novel-and-simple-invariant-domain-preserving-framework-for.bib" download="pub-2025-a-novel-and-simple-invariant-domain-preserving-framework-for.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025anovelandsimpleinvariantdomainpreservingframeworkfor,
+  author = {R{\'e}mi Abgrall and Miaosen Jiao and Yongle Liu and Kailiang Wu},
+  title = {{A novel and simple invariant-domain-preserving framework for PAMPA scheme: 1D case}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2025},
+  eprint = {2412.03423},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2412.03423}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-robust-discontinuous-galerkin-methods-maintaining-physical-constraints-for-general" class="publication-entry" data-year="2025" data-publication-id="pub-2025-robust-discontinuous-galerkin-methods-maintaining-physical-constraints-for-general">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2410.05000"><strong>Robust discontinuous Galerkin methods maintaining physical constraints for general relativistic hydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+H. Cao, M. Peng, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2410.05000" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-robust-discontinuous-galerkin-methods-maintaining-physical-constraints-for-general.bib" download="pub-2025-robust-discontinuous-galerkin-methods-maintaining-physical-constraints-for-general.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025robustdiscontinuousgalerkinmethodsmaintainingphysicalconstraintsforgeneral,
+  author = {Huihui Cao and Manting Peng and Kailiang Wu},
+  title = {{Robust discontinuous Galerkin methods maintaining physical constraints for general relativistic hydrodynamics}},
+  journal = {Journal of Computational Physics},
+  year = {2025},
+  eprint = {2410.05000},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2410.05000}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-robust-dg-schemes-on-unstructured-triangular-meshes-oscillation-elimination" class="publication-entry" data-year="2025" data-publication-id="pub-2025-robust-dg-schemes-on-unstructured-triangular-meshes-oscillation-elimination">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2409.09620"><strong>Robust DG schemes on unstructured triangular meshes: Oscillation elimination and bound preservation via optimal convex decomposition</strong></a>
+</div>
+<div class="publication-authors">
+S. Ding, S. Cui, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2409.09620" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-robust-dg-schemes-on-unstructured-triangular-meshes-oscillation-elimination.bib" download="pub-2025-robust-dg-schemes-on-unstructured-triangular-meshes-oscillation-elimination.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025robustdgschemesonunstructuredtriangularmeshesoscillationelimination,
+  author = {Shengrong Ding and Shumo Cui and Kailiang Wu},
+  title = {{Robust DG schemes on unstructured triangular meshes: Oscillation elimination and bound preservation via optimal convex decomposition}},
+  journal = {Journal of Computational Physics},
+  year = {2025},
+  eprint = {2409.09620},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2409.09620}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-high-order-accurate-structure-preserving-finite-volume-schemes-on" class="publication-entry" data-year="2025" data-publication-id="pub-2025-high-order-accurate-structure-preserving-finite-volume-schemes-on">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2409.09600"><strong>High-order accurate structure-preserving finite volume schemes on adaptive moving meshes for shallow water equations: Well balancedness and positivity</strong></a>
+</div>
+<div class="publication-authors">
+Z. Zhang, H. Tang, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2409.09600" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-high-order-accurate-structure-preserving-finite-volume-schemes-on.bib" download="pub-2025-high-order-accurate-structure-preserving-finite-volume-schemes-on.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025highorderaccuratestructurepreservingfinitevolumeschemeson,
+  author = {Zhihao Zhang and Huazhong Tang and Kailiang Wu},
+  title = {{High-order accurate structure-preserving finite volume schemes on adaptive moving meshes for shallow water equations: Well balancedness and positivity}},
+  journal = {Journal of Computational Physics},
+  year = {2025},
+  eprint = {2409.09600},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2409.09600}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-structure-preserving-oscillation-eliminating-discontinuous-galerkin-schemes-for-ideal" class="publication-entry" data-year="2025" data-publication-id="pub-2025-structure-preserving-oscillation-eliminating-discontinuous-galerkin-schemes-for-ideal">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2404.16794"><strong>Structure-preserving oscillation-eliminating discontinuous Galerkin schemes for ideal MHD equations: Locally divergence-free and positivity-preserving</strong></a>
+</div>
+<div class="publication-authors">
+M. Liu and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2404.16794" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-structure-preserving-oscillation-eliminating-discontinuous-galerkin-schemes-for-ideal.bib" download="pub-2025-structure-preserving-oscillation-eliminating-discontinuous-galerkin-schemes-for-ideal.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025structurepreservingoscillationeliminatingdiscontinuousgalerkinschemesforideal,
+  author = {Mengqing Liu and Kailiang Wu},
+  title = {{Structure-preserving oscillation-eliminating discontinuous Galerkin schemes for ideal MHD equations: Locally divergence-free and positivity-preserving}},
+  journal = {Journal of Computational Physics},
+  year = {2025},
+  eprint = {2404.16794},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2404.16794}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-positivity-preserving-new-low-dssipation-central-upwind-schemes-for" class="publication-entry" data-year="2025" data-publication-id="pub-2025-positivity-preserving-new-low-dssipation-central-upwind-schemes-for">
+<div class="publication-title">
+<strong>Positivity-preserving new low-dssipation central-upwind schemes for compressible Euler equations</strong>
+</div>
+<div class="publication-authors">
+S. Cui, Y. Gu, A. Kurganov, <strong>K. Wu</strong>, and R. Xin
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-positivity-preserving-new-low-dssipation-central-upwind-schemes-for.bib" download="pub-2025-positivity-preserving-new-low-dssipation-central-upwind-schemes-for.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025positivitypreservingnewlowdssipationcentralupwindschemesfor,
+  author = {S. Cui and Y. Gu and A. Kurganov and K. Wu and R. Xin},
+  title = {{Positivity-preserving new low-dssipation central-upwind schemes for compressible Euler equations}},
+  journal = {Journal of Computational Physics},
+  year = {2025}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-divergence-free-finite-volume-weno-scheme-for-relativistic-magnetohydrodynamics" class="publication-entry" data-year="2025" data-publication-id="pub-2025-divergence-free-finite-volume-weno-scheme-for-relativistic-magnetohydrodynamics">
+<div class="publication-title">
+<strong>Divergence-free finite volume WENO scheme for relativistic magnetohydrodynamics preserving positivity and subluminal velocity</strong>
+</div>
+<div class="publication-authors">
+S. Ding, <strong>K. Wu</strong>*, and C. Yuan
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Monthly Notices of the Royal Astronomical Society (MNRAS)</span>, 2025.
+</div>
+<div class="publication-tools"><details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-divergence-free-finite-volume-weno-scheme-for-relativistic-magnetohydrodynamics.bib" download="pub-2025-divergence-free-finite-volume-weno-scheme-for-relativistic-magnetohydrodynamics.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025divergencefreefinitevolumewenoschemeforrelativisticmagnetohydrodynamics,
+  author = {S. Ding and K. Wu and C. Yuan},
+  title = {{Divergence-free finite volume WENO scheme for relativistic magnetohydrodynamics preserving positivity and subluminal velocity}},
+  journal = {Monthly Notices of the Royal Astronomical Society (MNRAS)},
+  year = {2025}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-high-order-accurate-entropy-stable-schemes-for-relativistic-hydrodynamics-with-a-general" class="publication-entry" data-year="2024" data-publication-id="pub-2024-high-order-accurate-entropy-stable-schemes-for-relativistic-hydrodynamics-with-a-general">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2409.10872"><strong>High-order accurate entropy stable schemes for relativistic hydrodynamics with a general equation of state</strong></a>
+</div>
+<div class="publication-authors">
+L. Xu, S. Ding, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Scientific Computing</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2409.10872" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-high-order-accurate-entropy-stable-schemes-for-relativistic-hydrodynamics-with-a-general.bib" download="pub-2024-high-order-accurate-entropy-stable-schemes-for-relativistic-hydrodynamics-with-a-general.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024highorderaccurateentropystableschemesforrelativistichydrodynamicswithageneral,
+  author = {Linfeng Xu and Shengrong Ding and Kailiang Wu},
+  title = {{High-order accurate entropy stable schemes for relativistic hydrodynamics with a general equation of state}},
+  journal = {Journal of Scientific Computing},
+  year = {2024},
+  volume = {98},
+  pages = {43},
+  eprint = {2409.10872},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2409.10872}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-high-order-structure-preserving-finite-difference-weno-scheme-for-mhd-equations-with" class="publication-entry" data-year="2024" data-publication-id="pub-2024-high-order-structure-preserving-finite-difference-weno-scheme-for-mhd-equations-with">
+<div class="publication-title">
+<strong>High order structure-preserving finite difference WENO scheme for MHD equations with gravitation in all sonic Mach numbers</strong>
+</div>
+<div class="publication-authors">
+W. Chen, <strong>K. Wu</strong>, and T. Xiong
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Scientific Computing</span>, 2024.
+</div>
+<div class="publication-tools"><details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-high-order-structure-preserving-finite-difference-weno-scheme-for-mhd-equations-with.bib" download="pub-2024-high-order-structure-preserving-finite-difference-weno-scheme-for-mhd-equations-with.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024highorderstructurepreservingfinitedifferencewenoschemeformhdequationswith,
+  author = {W. Chen and K. Wu and T. Xiong},
+  title = {{High order structure-preserving finite difference WENO scheme for MHD equations with gravitation in all sonic Mach numbers}},
+  journal = {Journal of Scientific Computing},
+  year = {2024},
+  volume = {99},
+  pages = {36}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-on-optimal-cell-average-decomposition-for-high-order-bound" class="publication-entry" data-year="2024" data-publication-id="pub-2024-on-optimal-cell-average-decomposition-for-high-order-bound">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2212.05045"><strong>On optimal cell average decomposition for high-order bound-preserving schemes of hyperbolic conservation laws</strong></a>
+</div>
+<div class="publication-authors">
+S. Cui, S. Ding, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Numerical Analysis</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2212.05045" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-on-optimal-cell-average-decomposition-for-high-order-bound.bib" download="pub-2024-on-optimal-cell-average-decomposition-for-high-order-bound.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024onoptimalcellaveragedecompositionforhighorderbound,
+  author = {Shumo Cui and Shengrong Ding and Kailiang Wu},
+  title = {{On optimal cell average decomposition for high-order bound-preserving schemes of hyperbolic conservation laws}},
+  journal = {SIAM Journal on Numerical Analysis},
+  year = {2024},
+  eprint = {2212.05045},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2212.05045}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-uniformly-high-order-bound-preserving-oedg-schemes-for-two" class="publication-entry" data-year="2024" data-publication-id="pub-2024-uniformly-high-order-bound-preserving-oedg-schemes-for-two">
+<div class="publication-title">
+<strong>Uniformly high-order bound-preserving OEDG schemes for two-phase flow</strong>
+</div>
+<div class="publication-authors">
+R. Yan, R. Abgrall, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Math. Models Methods Appl. Sci. (M3AS)</span>, 2024.
+</div>
+<div class="publication-tools"><details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-uniformly-high-order-bound-preserving-oedg-schemes-for-two.bib" download="pub-2024-uniformly-high-order-bound-preserving-oedg-schemes-for-two.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024uniformlyhighorderboundpreservingoedgschemesfortwo,
+  author = {R. Yan and R. Abgrall and K. Wu},
+  title = {{Uniformly high-order bound-preserving OEDG schemes for two-phase flow}},
+  journal = {Math. Models Methods Appl. Sci. (M3AS)},
+  year = {2024}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-bound-preserving-framework-for-central-upwind-schemes-for-general" class="publication-entry" data-year="2024" data-publication-id="pub-2024-bound-preserving-framework-for-central-upwind-schemes-for-general">
+<div class="publication-title">
+<a href="https://doi.org/10.1137/23M1628024"><strong>Bound-preserving framework for central-upwind schemes for general hyperbolic conservation laws</strong></a>
+</div>
+<div class="publication-authors">
+S. Cui, A. Kurganov, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1137/23M1628024" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2403.13420" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-bound-preserving-framework-for-central-upwind-schemes-for-general.bib" download="pub-2024-bound-preserving-framework-for-central-upwind-schemes-for-general.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024boundpreservingframeworkforcentralupwindschemesforgeneral,
+  author = {Shumo Cui and Alexander Kurganov and Kailiang Wu},
+  title = {{Bound-preserving framework for central-upwind schemes for general hyperbolic conservation laws}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2024},
+  volume = {46},
+  number = {5},
+  pages = {A2899--A2924},
+  doi = {10.1137/23M1628024},
+  eprint = {2403.13420},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1137/23M1628024}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-a-new-locally-divergence-free-path-conservative-central-upwind" class="publication-entry" data-year="2024" data-publication-id="pub-2024-a-new-locally-divergence-free-path-conservative-central-upwind">
+<div class="publication-title">
+<a href="https://doi.org/10.1137/22M1539009"><strong>A new locally divergence-free path-conservative central-upwind scheme for ideal and shallow water magnetohydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+A. Chertock, A. Kurganov, M. Redle, and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1137/22M1539009" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2212.02682" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-a-new-locally-divergence-free-path-conservative-central-upwind.bib" download="pub-2024-a-new-locally-divergence-free-path-conservative-central-upwind.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024anewlocallydivergencefreepathconservativecentralupwind,
+  author = {Alina Chertock and Alexander Kurganov and Michael Redle and Kailiang Wu},
+  title = {{A new locally divergence-free path-conservative central-upwind scheme for ideal and shallow water magnetohydrodynamics}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2024},
+  volume = {46},
+  number = {3},
+  pages = {A1998--A2024},
+  doi = {10.1137/22M1539009},
+  eprint = {2212.02682},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1137/22M1539009}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-gql-based-bound-preserving-and-locally-divergence-free-central" class="publication-entry" data-year="2024" data-publication-id="pub-2024-gql-based-bound-preserving-and-locally-divergence-free-central">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2024.113208"><strong>GQL-based bound-preserving and locally divergence-free central discontinuous Galerkin schemes for relativistic magnetohydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+S. Ding and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2024.113208" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2402.15437" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-gql-based-bound-preserving-and-locally-divergence-free-central.bib" download="pub-2024-gql-based-bound-preserving-and-locally-divergence-free-central.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024gqlbasedboundpreservingandlocallydivergencefreecentral,
+  author = {Shengrong Ding and Kailiang Wu},
+  title = {{GQL-based bound-preserving and locally divergence-free central discontinuous Galerkin schemes for relativistic magnetohydrodynamics}},
+  journal = {Journal of Computational Physics},
+  year = {2024},
+  volume = {514},
+  pages = {113208},
+  doi = {10.1016/j.jcp.2024.113208},
+  eprint = {2402.15437},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1016/j.jcp.2024.113208}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-bound-preserving-oedg-method-for-aw-rascle-zhang-traffic" class="publication-entry" data-year="2024" data-publication-id="pub-2024-bound-preserving-oedg-method-for-aw-rascle-zhang-traffic">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2409.16269"><strong>Bound-preserving OEDG method for Aw-Rascle-Zhang traffic models on networks</strong></a>
+</div>
+<div class="publication-authors">
+W. Chen, S. Cui, <strong>K. Wu</strong>, and T. Xiong
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2409.16269" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-bound-preserving-oedg-method-for-aw-rascle-zhang-traffic.bib" download="pub-2024-bound-preserving-oedg-method-for-aw-rascle-zhang-traffic.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024boundpreservingoedgmethodforawrasclezhangtraffic,
+  author = {Wei Chen and Shumo Cui and Kailiang Wu and Tao Xiong},
+  title = {{Bound-preserving OEDG method for Aw-Rascle-Zhang traffic models on networks}},
+  journal = {Journal of Computational Physics},
+  year = {2024},
+  eprint = {2409.16269},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2409.16269}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-high-order-accurate-positivity-preserving-and-well-balanced-discontinuous" class="publication-entry" data-year="2024" data-publication-id="pub-2024-high-order-accurate-positivity-preserving-and-well-balanced-discontinuous">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2402.15446"><strong>High-order accurate positivity-preserving and well-balanced discontinuous Galerkin schemes for ten-moment Gaussian closure equations with source terms</strong></a>
+</div>
+<div class="publication-authors">
+J. Wang, H. Tang, <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2402.15446" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-high-order-accurate-positivity-preserving-and-well-balanced-discontinuous.bib" download="pub-2024-high-order-accurate-positivity-preserving-and-well-balanced-discontinuous.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024highorderaccuratepositivitypreservingandwellbalanceddiscontinuous,
+  author = {Jiangfu Wang and Huazhong Tang and Kailiang Wu},
+  title = {{High-order accurate positivity-preserving and well-balanced discontinuous Galerkin schemes for ten-moment Gaussian closure equations with source terms}},
+  journal = {Journal of Computational Physics},
+  year = {2024},
+  eprint = {2402.15446},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2402.15446}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-a-new-discretely-divergence-free-positivity-preserving-high-order" class="publication-entry" data-year="2024" data-publication-id="pub-2024-a-new-discretely-divergence-free-positivity-preserving-high-order">
+<div class="publication-title">
+<a href="https://doi.org/10.1137/23M1562081"><strong>A new discretely divergence-free positivity-preserving high-order finite volume method for ideal MHD equations</strong></a>
+</div>
+<div class="publication-authors">
+S. Ding and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1137/23M1562081" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2305.14820" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-a-new-discretely-divergence-free-positivity-preserving-high-order.bib" download="pub-2024-a-new-discretely-divergence-free-positivity-preserving-high-order.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024anewdiscretelydivergencefreepositivitypreservinghighorder,
+  author = {Shengrong Ding and Kailiang Wu},
+  title = {{A new discretely divergence-free positivity-preserving high-order finite volume method for ideal MHD equations}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2024},
+  volume = {46},
+  number = {1},
+  pages = {A50--A79},
+  doi = {10.1137/23M1562081},
+  eprint = {2305.14820},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1137/23M1562081}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-provably-convergent-newton-raphson-methods-for-recovering-primitive-variables" class="publication-entry" data-year="2024" data-publication-id="pub-2024-provably-convergent-newton-raphson-methods-for-recovering-primitive-variables">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2023.112669"><strong>Provably convergent Newton-Raphson methods for recovering primitive variables with applications to physical-constraint-preserving Hermite WENO schemes for relativistic hydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+C. Cai, J. Qiu, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2023.112669" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2305.14805" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-provably-convergent-newton-raphson-methods-for-recovering-primitive-variables.bib" download="pub-2024-provably-convergent-newton-raphson-methods-for-recovering-primitive-variables.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024provablyconvergentnewtonraphsonmethodsforrecoveringprimitivevariables,
+  author = {Chaoyi Cai and Jianxian Qiu and Kailiang Wu},
+  title = {{Provably convergent Newton-Raphson methods for recovering primitive variables with applications to physical-constraint-preserving Hermite WENO schemes for relativistic hydrodynamics}},
+  journal = {Journal of Computational Physics},
+  year = {2024},
+  volume = {498},
+  pages = {112669},
+  doi = {10.1016/j.jcp.2023.112669},
+  eprint = {2305.14805},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1016/j.jcp.2023.112669}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2023-geometric-quasilinearization-framework-for-analysis-and-design-of-bound" class="publication-entry" data-year="2023" data-publication-id="pub-2023-geometric-quasilinearization-framework-for-analysis-and-design-of-bound">
+<div class="publication-title">
+<a href="https://doi.org/10.1137/21M1458247"><strong>Geometric quasilinearization framework for analysis and design of bound-preserving schemes</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong> and C.-W. Shu
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Review</span>, 2023.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1137/21M1458247" target="_blank" rel="noopener">Paper</a>
+<a href="https://epubs.siam.org/doi/pdf/10.1137/21M1458247" target="_blank" rel="noopener">PDF</a>
+<a href="https://arxiv.org/abs/2111.04722" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2023-geometric-quasilinearization-framework-for-analysis-and-design-of-bound.bib" download="pub-2023-geometric-quasilinearization-framework-for-analysis-and-design-of-bound.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2023geometricquasilinearizationframeworkforanalysisanddesignofbound,
+  author = {Kailiang Wu and Chi-Wang Shu},
+  title = {{Geometric quasilinearization framework for analysis and design of bound-preserving schemes}},
+  journal = {SIAM Review},
+  year = {2023},
+  volume = {65},
+  number = {4},
+  pages = {1031--1073},
+  doi = {10.1137/21M1458247},
+  eprint = {2111.04722},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1137/21M1458247}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2023-provably-positive-central-discontinuous-galerkin-schemes-via-geometric-quasilinearization" class="publication-entry" data-year="2023" data-publication-id="pub-2023-provably-positive-central-discontinuous-galerkin-schemes-via-geometric-quasilinearization">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2203.14853"><strong>Provably positive central discontinuous Galerkin schemes via geometric quasilinearization for ideal MHD equations</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong>*, H. Jiang, and C.-W. Shu
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Numerical Analysis</span>, 2023.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2203.14853" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2023-provably-positive-central-discontinuous-galerkin-schemes-via-geometric-quasilinearization.bib" download="pub-2023-provably-positive-central-discontinuous-galerkin-schemes-via-geometric-quasilinearization.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2023provablypositivecentraldiscontinuousgalerkinschemesviageometricquasilinearization,
+  author = {Kailiang Wu and Haili Jiang and Chi-Wang Shu},
+  title = {{Provably positive central discontinuous Galerkin schemes via geometric quasilinearization for ideal MHD equations}},
+  journal = {SIAM Journal on Numerical Analysis},
+  year = {2023},
+  volume = {61},
+  pages = {250--285},
+  eprint = {2203.14853},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2203.14853}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2023-high-order-asymptotic-preserving-finite-difference-weno-schemes-with" class="publication-entry" data-year="2023" data-publication-id="pub-2023-high-order-asymptotic-preserving-finite-difference-weno-schemes-with">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2211.16655"><strong>High order asymptotic preserving finite difference WENO schemes with constrained transport for MHD equations in all sonic Mach numbers</strong></a>
+</div>
+<div class="publication-authors">
+W. Chen, <strong>K. Wu</strong>, and T. Xiong
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2023.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2211.16655" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2023-high-order-asymptotic-preserving-finite-difference-weno-schemes-with.bib" download="pub-2023-high-order-asymptotic-preserving-finite-difference-weno-schemes-with.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2023highorderasymptoticpreservingfinitedifferencewenoschemeswith,
+  author = {Wei Chen and Kailiang Wu and Tao Xiong},
+  title = {{High order asymptotic preserving finite difference WENO schemes with constrained transport for MHD equations in all sonic Mach numbers}},
+  journal = {Journal of Computational Physics},
+  year = {2023},
+  volume = {488},
+  pages = {112240},
+  eprint = {2211.16655},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2211.16655}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2023-on-positivity-preserving-well-balanced-finite-volume-methods-for" class="publication-entry" data-year="2023" data-publication-id="pub-2023-on-positivity-preserving-well-balanced-finite-volume-methods-for">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2023.112429"><strong>On high order positivity-preserving well-balanced finite volume methods for the Euler equations with gravitation</strong></a>
+</div>
+<div class="publication-authors">
+Y. Ren, <strong>K. Wu</strong>, J. Qiu, and Y. Xing
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2023.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2023.112429" target="_blank" rel="noopener">Paper</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2023-on-positivity-preserving-well-balanced-finite-volume-methods-for.bib" download="pub-2023-on-positivity-preserving-well-balanced-finite-volume-methods-for.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2023onpositivitypreservingwellbalancedfinitevolumemethodsfor,
+  author = {Y. Ren and K. Wu and J. Qiu and Y. Xing},
+  title = {{On high order positivity-preserving well-balanced finite volume methods for the Euler equations with gravitation}},
+  journal = {Journal of Computational Physics},
+  year = {2023},
+  volume = {492},
+  pages = {112429},
+  doi = {10.1016/j.jcp.2023.112429},
+  url = {https://doi.org/10.1016/j.jcp.2023.112429}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2022-on-energy-laws-and-stability-of-runge-kutta-methods" class="publication-entry" data-year="2022" data-publication-id="pub-2022-on-energy-laws-and-stability-of-runge-kutta-methods">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2201.06501"><strong>On energy laws and stability of Runge–Kutta methods for linear seminegative problems</strong></a>
+</div>
+<div class="publication-authors">
+Z. Sun, Y. Wei, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Numerical Analysis</span>, 2022.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2201.06501" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2022-on-energy-laws-and-stability-of-runge-kutta-methods.bib" download="pub-2022-on-energy-laws-and-stability-of-runge-kutta-methods.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2022onenergylawsandstabilityofrungekuttamethods,
+  author = {Zheng Sun and Yuanzhe Wei and Kailiang Wu},
+  title = {{On energy laws and stability of Runge--Kutta methods for linear seminegative problems}},
+  journal = {SIAM Journal on Numerical Analysis},
+  year = {2022},
+  volume = {60},
+  number = {5},
+  pages = {2448--2481},
+  eprint = {2201.06501},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2201.06501}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2022-is-the-classic-convex-decomposition-optimal-for-bound-preserving" class="publication-entry" data-year="2022" data-publication-id="pub-2022-is-the-classic-convex-decomposition-optimal-for-bound-preserving">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2207.08849"><strong>Is the classic convex decomposition optimal for bound-preserving schemes in multiple dimensions?</strong></a>
+</div>
+<div class="publication-authors">
+S. Cui, S. Ding, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2022.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2207.08849" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2022-is-the-classic-convex-decomposition-optimal-for-bound-preserving.bib" download="pub-2022-is-the-classic-convex-decomposition-optimal-for-bound-preserving.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2022istheclassicconvexdecompositionoptimalforboundpreserving,
+  author = {Shumo Cui and Shengrong Ding and Kailiang Wu},
+  title = {{Is the classic convex decomposition optimal for bound-preserving schemes in multiple dimensions?}},
+  journal = {Journal of Computational Physics},
+  year = {2022},
+  volume = {476},
+  pages = {111882},
+  eprint = {2207.08849},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2207.08849}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2022-a-physical-constraint-preserving-finite-volume-method-for-special" class="publication-entry" data-year="2022" data-publication-id="pub-2022-a-physical-constraint-preserving-finite-volume-method-for-special">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2207.09385"><strong>A physical-constraint-preserving finite volume method for special relativistic hydrodynamics on unstructured meshes</strong></a>
+</div>
+<div class="publication-authors">
+Y. Chen and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2022.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2207.09385" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2022-a-physical-constraint-preserving-finite-volume-method-for-special.bib" download="pub-2022-a-physical-constraint-preserving-finite-volume-method-for-special.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2022aphysicalconstraintpreservingfinitevolumemethodforspecial,
+  author = {Yaping Chen and Kailiang Wu},
+  title = {{A physical-constraint-preserving finite volume method for special relativistic hydrodynamics on unstructured meshes}},
+  journal = {Journal of Computational Physics},
+  year = {2022},
+  volume = {466},
+  pages = {111398},
+  eprint = {2207.09385},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2207.09385}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2022-positivity-preserving-well-balanced-central-discontinuous-galerkin-schemes-for" class="publication-entry" data-year="2022" data-publication-id="pub-2022-positivity-preserving-well-balanced-central-discontinuous-galerkin-schemes-for">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2207.09398"><strong>Positivity-preserving well-balanced central discontinuous Galerkin schemes for the Euler equations under gravitational fields</strong></a>
+</div>
+<div class="publication-authors">
+H. Jiang, H. Tang, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2022.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2207.09398" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2022-positivity-preserving-well-balanced-central-discontinuous-galerkin-schemes-for.bib" download="pub-2022-positivity-preserving-well-balanced-central-discontinuous-galerkin-schemes-for.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2022positivitypreservingwellbalancedcentraldiscontinuousgalerkinschemesfor,
+  author = {Haili Jiang and Huazhong Tang and Kailiang Wu},
+  title = {{Positivity-preserving well-balanced central discontinuous Galerkin schemes for the Euler equations under gravitational fields}},
+  journal = {Journal of Computational Physics},
+  year = {2022},
+  volume = {463},
+  pages = {111297},
+  eprint = {2207.09398},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2207.09398}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2021-minimum-principle-on-specific-entropy-and-high-order-accurate" class="publication-entry" data-year="2021" data-publication-id="pub-2021-minimum-principle-on-specific-entropy-and-high-order-accurate">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2102.03801"><strong>Minimum principle on specific entropy and high-order accurate invariant region preserving numerical methods for relativistic hydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2021.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2102.03801" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2021-minimum-principle-on-specific-entropy-and-high-order-accurate.bib" download="pub-2021-minimum-principle-on-specific-entropy-and-high-order-accurate.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2021minimumprincipleonspecificentropyandhighorderaccurate,
+  author = {Kailiang Wu},
+  title = {{Minimum principle on specific entropy and high-order accurate invariant region preserving numerical methods for relativistic hydrodynamics}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2021},
+  volume = {43},
+  number = {6},
+  pages = {B1164--B1197},
+  eprint = {2102.03801},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2102.03801}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2021-provably-physical-constraint-preserving-discontinuous-galerkin-methods-for-multidimensional" class="publication-entry" data-year="2021" data-publication-id="pub-2021-provably-physical-constraint-preserving-discontinuous-galerkin-methods-for-multidimensional">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2002.03371"><strong>Provably physical-constraint-preserving discontinuous Galerkin methods for multidimensional relativistic MHD equations</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong>* and C.-W. Shu
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Numerische Mathematik</span>, 2021.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2002.03371" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2021-provably-physical-constraint-preserving-discontinuous-galerkin-methods-for-multidimensional.bib" download="pub-2021-provably-physical-constraint-preserving-discontinuous-galerkin-methods-for-multidimensional.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2021provablyphysicalconstraintpreservingdiscontinuousgalerkinmethodsformultidimensional,
+  author = {Kailiang Wu and Chi-Wang Shu},
+  title = {{Provably physical-constraint-preserving discontinuous Galerkin methods for multidimensional relativistic MHD equations}},
+  journal = {Numerische Mathematik},
+  year = {2021},
+  volume = {148},
+  pages = {699--741},
+  eprint = {2002.03371},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2002.03371}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2021-uniformly-high-order-structure-preserving-discontinuous-galerkin-methods-for" class="publication-entry" data-year="2021" data-publication-id="pub-2021-uniformly-high-order-structure-preserving-discontinuous-galerkin-methods-for">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2005.07166"><strong>Uniformly high-order structure-preserving discontinuous Galerkin methods for Euler equations with gravitation: Positivity and well-balancedness</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong> and Y. Xing
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2021.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2005.07166" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2021-uniformly-high-order-structure-preserving-discontinuous-galerkin-methods-for.bib" download="pub-2021-uniformly-high-order-structure-preserving-discontinuous-galerkin-methods-for.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2021uniformlyhighorderstructurepreservingdiscontinuousgalerkinmethodsfor,
+  author = {Kailiang Wu and Yulong Xing},
+  title = {{Uniformly high-order structure-preserving discontinuous Galerkin methods for Euler equations with gravitation: Positivity and well-balancedness}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2021},
+  volume = {43},
+  number = {1},
+  pages = {A472--A510},
+  eprint = {2005.07166},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2005.07166}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2020-entropy-symmetrization-and-high-order-accurate-entropy-stable-numerical" class="publication-entry" data-year="2020" data-publication-id="pub-2020-entropy-symmetrization-and-high-order-accurate-entropy-stable-numerical">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/1907.07467"><strong>Entropy symmetrization and high-order accurate entropy stable numerical schemes for relativistic MHD equations</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong> and C.-W. Shu
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2020.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/1907.07467" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2020-entropy-symmetrization-and-high-order-accurate-entropy-stable-numerical.bib" download="pub-2020-entropy-symmetrization-and-high-order-accurate-entropy-stable-numerical.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2020entropysymmetrizationandhighorderaccurateentropystablenumerical,
+  author = {Kailiang Wu and Chi-Wang Shu},
+  title = {{Entropy symmetrization and high-order accurate entropy stable numerical schemes for relativistic MHD equations}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2020},
+  volume = {42},
+  number = {4},
+  pages = {A2230--A2261},
+  eprint = {1907.07467},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/1907.07467}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2020-structure-preserving-method-for-reconstructing-unknown-hamiltonian-systems-from" class="publication-entry" data-year="2020" data-publication-id="pub-2020-structure-preserving-method-for-reconstructing-unknown-hamiltonian-systems-from">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/1905.10396"><strong>Structure-preserving method for reconstructing unknown Hamiltonian systems from trajectory data</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong>, T. Qin, and D. Xiu
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2020.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/1905.10396" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2020-structure-preserving-method-for-reconstructing-unknown-hamiltonian-systems-from.bib" download="pub-2020-structure-preserving-method-for-reconstructing-unknown-hamiltonian-systems-from.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2020structurepreservingmethodforreconstructingunknownhamiltoniansystemsfrom,
+  author = {Kailiang Wu and Tong Qin and Dongbin Xiu},
+  title = {{Structure-preserving method for reconstructing unknown Hamiltonian systems from trajectory data}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2020},
+  volume = {42},
+  number = {6},
+  pages = {A3704--A3729},
+  eprint = {1905.10396},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/1905.10396}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2019-provably-positive-high-order-schemes-for-ideal-magnetohydrodynamics-analysis" class="publication-entry" data-year="2019" data-publication-id="pub-2019-provably-positive-high-order-schemes-for-ideal-magnetohydrodynamics-analysis">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/1807.11467"><strong>Provably positive high-order schemes for ideal magnetohydrodynamics: Analysis on general meshes</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong>* and C.-W. Shu
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Numerische Mathematik</span>, 2019.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/1807.11467" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2019-provably-positive-high-order-schemes-for-ideal-magnetohydrodynamics-analysis.bib" download="pub-2019-provably-positive-high-order-schemes-for-ideal-magnetohydrodynamics-analysis.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2019provablypositivehighorderschemesforidealmagnetohydrodynamicsanalysis,
+  author = {Kailiang Wu and Chi-Wang Shu},
+  title = {{Provably positive high-order schemes for ideal magnetohydrodynamics: Analysis on general meshes}},
+  journal = {Numerische Mathematik},
+  year = {2019},
+  volume = {142},
+  number = {4},
+  pages = {995--1047},
+  eprint = {1807.11467},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/1807.11467}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2018-on-physical-constraints-preserving-schemes-for-special-relativistic-magnetohydrodynamics-with-a-general" class="publication-entry" data-year="2018" data-publication-id="pub-2018-on-physical-constraints-preserving-schemes-for-special-relativistic-magnetohydrodynamics-with-a-general">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/1709.05838"><strong>On physical-constraints-preserving schemes for special relativistic magnetohydrodynamics with a general equation of state</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong> and H. Tang
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Z. Angew. Math. Phys.</span>, 2018.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/1709.05838" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2018-on-physical-constraints-preserving-schemes-for-special-relativistic-magnetohydrodynamics-with-a-general.bib" download="pub-2018-on-physical-constraints-preserving-schemes-for-special-relativistic-magnetohydrodynamics-with-a-general.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2018onphysicalconstraintspreservingschemesforspecialrelativisticmagnetohydrodynamicswithageneral,
+  author = {Kailiang Wu and Huazhong Tang},
+  title = {{On physical-constraints-preserving schemes for special relativistic magnetohydrodynamics with a general equation of state}},
+  journal = {Z. Angew. Math. Phys.},
+  year = {2018},
+  volume = {69},
+  pages = {84},
+  eprint = {1709.05838},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/1709.05838}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2018-positivity-preserving-analysis-of-numerical-schemes-for-ideal-magnetohydrodynamics" class="publication-entry" data-year="2018" data-publication-id="pub-2018-positivity-preserving-analysis-of-numerical-schemes-for-ideal-magnetohydrodynamics">
+<div class="publication-title">
+<a href="https://doi.org/10.1137/18M1168017"><strong>Positivity-preserving analysis of numerical schemes for ideal magnetohydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Numerical Analysis</span>, 2018.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1137/18M1168017" target="_blank" rel="noopener">Paper</a>
+<a href="https://archive.ymsc.tsinghua.edu.cn/pacm_download/536/11790-Wu-SINUM2018.pdf" title="Read the published paper" target="_blank" rel="noopener">PDF</a>
+<a href="https://arxiv.org/abs/1802.02278" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2018-positivity-preserving-analysis-of-numerical-schemes-for-ideal-magnetohydrodynamics.bib" download="pub-2018-positivity-preserving-analysis-of-numerical-schemes-for-ideal-magnetohydrodynamics.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2018positivitypreservinganalysisofnumericalschemesforidealmagnetohydrodynamics,
+  author = {Kailiang Wu},
+  title = {{Positivity-preserving analysis of numerical schemes for ideal magnetohydrodynamics}},
+  journal = {SIAM Journal on Numerical Analysis},
+  year = {2018},
+  volume = {56},
+  number = {4},
+  pages = {2124--2147},
+  doi = {10.1137/18M1168017},
+  eprint = {1802.02278},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1137/18M1168017}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2018-a-provably-positive-discontinuous-galerkin-method-for-multidimensional-ideal" class="publication-entry" data-year="2018" data-publication-id="pub-2018-a-provably-positive-discontinuous-galerkin-method-for-multidimensional-ideal">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/1807.00246"><strong>A provably positive discontinuous Galerkin method for multidimensional ideal magnetohydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong> and C.-W. Shu
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2018.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/1807.00246" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2018-a-provably-positive-discontinuous-galerkin-method-for-multidimensional-ideal.bib" download="pub-2018-a-provably-positive-discontinuous-galerkin-method-for-multidimensional-ideal.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2018aprovablypositivediscontinuousgalerkinmethodformultidimensionalideal,
+  author = {Kailiang Wu and Chi-Wang Shu},
+  title = {{A provably positive discontinuous Galerkin method for multidimensional ideal magnetohydrodynamics}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2018},
+  volume = {40},
+  number = {5},
+  pages = {B1302--B1329},
+  eprint = {1807.00246},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/1807.00246}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2017-design-of-provably-physical-constraint-preserving-methods-for-general" class="publication-entry" data-year="2017" data-publication-id="pub-2017-design-of-provably-physical-constraint-preserving-methods-for-general">
+<div class="publication-title">
+<a href="https://doi.org/10.1103/PhysRevD.95.103001"><strong>Design of provably physical-constraint-preserving methods for general relativistic hydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Physical Review D</span>, 2017.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1103/PhysRevD.95.103001" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/1610.06274" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2017-design-of-provably-physical-constraint-preserving-methods-for-general.bib" download="pub-2017-design-of-provably-physical-constraint-preserving-methods-for-general.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2017designofprovablyphysicalconstraintpreservingmethodsforgeneral,
+  author = {Kailiang Wu},
+  title = {{Design of provably physical-constraint-preserving methods for general relativistic hydrodynamics}},
+  journal = {Physical Review D},
+  year = {2017},
+  doi = {10.1103/PhysRevD.95.103001},
+  eprint = {1610.06274},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1103/PhysRevD.95.103001}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2017-admissible-states-and-physical-constraints-preserving-schemes-for-relativistic" class="publication-entry" data-year="2017" data-publication-id="pub-2017-admissible-states-and-physical-constraints-preserving-schemes-for-relativistic">
+<div class="publication-title">
+<a href="https://doi.org/10.1142/S0218202517500348"><strong>Admissible states and physical-constraints-preserving schemes for relativistic magnetohydrodynamic equations</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong> and H. Tang
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Math. Models Methods Appl. Sci. (M3AS)</span>, 2017.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1142/S0218202517500348" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/1603.06660" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2017-admissible-states-and-physical-constraints-preserving-schemes-for-relativistic.bib" download="pub-2017-admissible-states-and-physical-constraints-preserving-schemes-for-relativistic.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2017admissiblestatesandphysicalconstraintspreservingschemesforrelativistic,
+  author = {Kailiang Wu and Huazhong Tang},
+  title = {{Admissible states and physical-constraints-preserving schemes for relativistic magnetohydrodynamic equations}},
+  journal = {Math. Models Methods Appl. Sci. (M3AS)},
+  year = {2017},
+  volume = {27},
+  number = {10},
+  pages = {1871--1928},
+  doi = {10.1142/S0218202517500348},
+  eprint = {1603.06660},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1142/S0218202517500348}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2017-physical-constraint-preserving-central-discontinuous-galerkin-methods-for-special" class="publication-entry" data-year="2017" data-publication-id="pub-2017-physical-constraint-preserving-central-discontinuous-galerkin-methods-for-special">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/1607.08332"><strong>Physical-constraint-preserving central discontinuous Galerkin methods for special relativistic hydrodynamics with a general equation of state</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong> and H. Tang
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Astrophys. J. Suppl. Ser. (ApJS)</span>, 2017.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/1607.08332" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2017-physical-constraint-preserving-central-discontinuous-galerkin-methods-for-special.bib" download="pub-2017-physical-constraint-preserving-central-discontinuous-galerkin-methods-for-special.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2017physicalconstraintpreservingcentraldiscontinuousgalerkinmethodsforspecial,
+  author = {Kailiang Wu and Huazhong Tang},
+  title = {{Physical-constraint-preserving central discontinuous Galerkin methods for special relativistic hydrodynamics with a general equation of state}},
+  journal = {Astrophys. J. Suppl. Ser. (ApJS)},
+  year = {2017},
+  volume = {228},
+  number = {1},
+  pages = {3},
+  eprint = {1607.08332},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/1607.08332}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2015-high-order-accurate-physical-constraints-preserving-finite-difference-weno" class="publication-entry" data-year="2015" data-publication-id="pub-2015-high-order-accurate-physical-constraints-preserving-finite-difference-weno">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/1504.07707"><strong>High-order accurate physical-constraints-preserving finite difference WENO schemes for special relativistic hydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong> and H. Tang
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2015.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/1504.07707" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2015-high-order-accurate-physical-constraints-preserving-finite-difference-weno.bib" download="pub-2015-high-order-accurate-physical-constraints-preserving-finite-difference-weno.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2015highorderaccuratephysicalconstraintspreservingfinitedifferenceweno,
+  author = {Kailiang Wu and Huazhong Tang},
+  title = {{High-order accurate physical-constraints-preserving finite difference WENO schemes for special relativistic hydrodynamics}},
+  journal = {Journal of Computational Physics},
+  year = {2015},
+  volume = {298},
+  pages = {539--564},
+  eprint = {1504.07707},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/1504.07707}
+}</code></pre></div></details></div>
+</div>
+</div>
+
+
+</section>
+
+</main> 
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kailiang-wu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> 
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Kailiang Wu · Southern University of Science and Technology</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p><span class="email-address">wukl@sustech.edu.cn</span></p>
+</div>
+  </div>
+</footer>
+<script src="publication-tools.js?v=20260924-11" defer=""></script>
+<script src="translations-zh.js?v=20260924-14" defer=""></script>
+<script src="language-switch.js?v=20260924-12" defer=""></script>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
