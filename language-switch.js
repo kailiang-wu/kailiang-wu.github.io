@@ -25,10 +25,12 @@
     if (!chinese) continue;
     const template = document.createElement('template');
     template.innerHTML = chinese;
-    // News paragraphs share the verified name translations with the team roster.
-    for (const name of template.content.querySelectorAll('strong')) {
-      const translated = catalog.text[normalize(name.textContent)];
-      if (translated !== undefined) name.textContent = translated;
+    // Group and News names keep their source spelling; other pages use verified Chinese names.
+    if (!element.closest('#research-group, .news-list')) {
+      for (const name of template.content.querySelectorAll('strong')) {
+        const translated = catalog.text[normalize(name.textContent)];
+        if (translated !== undefined) name.textContent = translated;
+      }
     }
     const links = element.querySelectorAll('a');
     for (const anchor of template.content.querySelectorAll('a[data-link]')) {
@@ -47,6 +49,7 @@
     const node = walker.currentNode;
     const parent = node.parentElement;
     if (!parent || parent.closest(ignored) || insideBlock(parent)) continue;
+    if (parent.closest('#research-group strong, .news-list strong')) continue;
     const original = node.nodeValue;
     const key = normalize(original);
     const translated = catalog.text[key];
@@ -56,7 +59,7 @@
     textRecords.push({node, en: original, zh: leading + translated + trailing});
   }
 
-  const monthNumbers = {Jan:1, Feb:2, Mar:3, Apr:4, May:5, June:6, July:7, Aug:8, Sept:9, Oct:10, Nov:11, Dec:12};
+  const monthNumbers = {Jan:1, Feb:2, Mar:3, Apr:4, May:5, June:6, Jun:6, July:7, Jul:7, Aug:8, Sept:9, Sep:9, Oct:10, Nov:11, Dec:12};
   function translateAttribute(value) {
     if (catalog.text[value]) return catalog.text[value];
     const date = value.match(/^(\w+) (\d{4})$/);
