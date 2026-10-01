@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Oscillation-Eliminating (OE) Approach and its Variants | Kailiang Wu – Kailiang Wu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8dc96f8f5064c7c551e5af5f0142611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<meta name="color-scheme" content="light">
+
+
+<link rel="stylesheet" href="styles.css?v=20261001-3">
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+
+
+    
+
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Oscillation-Eliminating (OE) Approach and its Variants | Kailiang Wu</h1></header>
+
+<a class="skip-link" href="#quarto-content">Skip to content</a>
+<header class="site-header">
+  <img class="portrait" src="assets/kailiang-wu-portrait-20260928-cropped.jpg" alt="Kailiang Wu" width="800" height="1000">
+  <div class="identity">
+    <a class="identity-name" href="index.html">Kailiang Wu</a>
+    <p class="position">Professor of Mathematics</p>
+    <p class="affiliation"><span class="institution-line">Southern University of</span> <span class="institution-line">Science and Technology</span></p>
+    <p class="header-contact"><span class="contact-label">Email:</span> <span class="email-address">wukl@sustech.edu.cn</span></p>
+  </div>
+  <address class="profile-address">
+    <p><strong>Mailing address</strong><br>
+    Department of Mathematics<br>
+    Southern University of Science and Technology<br>
+    1088 Xueyuan Avenue, Nanshan District<br>
+    Shenzhen, Guangdong 518055, China</p>
+  </address>
+</header>
+<nav class="site-nav" aria-label="Main navigation">
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">
+    <svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+      <path class="nav-icon-open" d="M4 6h16M4 12h16M4 18h16"></path>
+      <path class="nav-icon-close" d="m6 6 12 12M6 18 18 6"></path>
+    </svg>
+    <span>Menu</span>
+  </button>
+  <div class="site-nav-links" id="site-nav-links">
+    <a data-page="home" href="index.html">Home</a>
+    <a data-page="publications" href="publications.html">Publications</a>
+    <a data-page="group" href="group.html">Group</a>
+    <a data-page="teaching" href="teaching.html">Teaching</a>
+    <a data-page="service" href="service.html">Service</a>
+    <a data-page="software" href="software.html">Software</a>
+    <a data-page="news" href="news.html">News</a>
+  </div>
+  <span class="language-switch" role="group" aria-label="Language" data-no-translate="">
+    <button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+    <span aria-hidden="true">/</span>
+    <button type="button" data-language="zh" lang="zh-CN" aria-label="中文" aria-pressed="false">中文</button>
+  </span>
+</nav>
+<script>
+(function () {
+  var file = window.location.pathname.split('/').pop() || 'index.html';
+  var group = {'index.html':'home','selected.html':'publications','publications.html':'publications','publications-by-topic.html':'publications','news.html':'news','group.html':'group','teaching.html':'teaching','service.html':'service','software.html':'software'}[file];
+  if (file.indexOf('publications-topic-') === 0) group = 'publications';
+  document.body.dataset.page = group || '';
+  function updateNavigation() {
+    var current = group;
+    document.querySelectorAll('.site-nav a').forEach(function (a) {
+      if (a.dataset.page === current) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  updateNavigation();
+  window.addEventListener('hashchange', updateNavigation);
+  var nav = document.querySelector('.site-nav');
+  var toggle = nav.querySelector('.nav-toggle');
+  function setMenu(open) {
+    nav.classList.toggle('is-expanded', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+  nav.classList.add('is-collapsible');
+  toggle.addEventListener('click', function () {
+    setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  nav.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      toggle.focus();
+    }
+  });
+  nav.querySelector('.site-nav-links').addEventListener('click', function (event) {
+    if (event.target.closest('a')) setMenu(false);
+  });
+  document.addEventListener('click', function (event) {
+    if (!nav.contains(event.target)) setMenu(false);
+  });
+  window.matchMedia('(max-width:700px)').addEventListener('change', function () { setMenu(false); });
+})();
+</script>
+
+<header id="title-block-header">
+
+
+</header>
+
+
+<nav class="publication-nav" aria-label="Publication views">
+<a href="selected.html">Selected</a> <a href="publications.html">By year</a> <a href="publications-by-topic.html">By topic</a>
+</nav>
+<script>
+(function(){
+var file=window.location.pathname.split('/').pop();
+if(file.indexOf('publications-topic-')===0)file='publications-by-topic.html';
+document.querySelectorAll('.publication-nav a').forEach(function(a){if(a.getAttribute('href')===file)a.setAttribute('aria-current','page');});
+})();
+</script>
+<p><a href="./publications-by-topic.html">← All topics</a></p>
+<section class="level1">
+<h1>Oscillation-Eliminating (OE) Approach and its Variants</h1>
+<div class="publication-list">
+<div id="pub-2025-oedg-oscillation-eliminating-discontinuous-galerkin-method-for-hyperbolic-conservation" class="publication-entry" data-publication-id="pub-2025-oedg-oscillation-eliminating-discontinuous-galerkin-method-for-hyperbolic-conservation" data-year="2025">
+<div class="publication-title">
+<a href="https://doi.org/10.1090/mcom/3998"><strong>OEDG: Oscillation-eliminating discontinuous Galerkin method for hyperbolic conservation laws</strong></a>
+</div>
+<div class="publication-authors">
+M. Peng, Z. Sun, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Mathematics of Computation</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1090/mcom/3998" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/pdf/2310.04807" title="Read the author's manuscript on arXiv" target="_blank" rel="noopener">PDF (arXiv version)</a>
+<a href="https://arxiv.org/abs/2310.04807" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-oedg-oscillation-eliminating-discontinuous-galerkin-method-for-hyperbolic-conservation.bib" download="pub-2025-oedg-oscillation-eliminating-discontinuous-galerkin-method-for-hyperbolic-conservation.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025oedgoscillationeliminatingdiscontinuousgalerkinmethodforhyperbolicconservation,
+  author = {Manting Peng and Zheng Sun and Kailiang Wu},
+  title = {{OEDG: Oscillation-eliminating discontinuous Galerkin method for hyperbolic conservation laws}},
+  journal = {Mathematics of Computation},
+  year = {2025},
+  volume = {94},
+  pages = {1147--1198},
+  doi = {10.1090/mcom/3998},
+  eprint = {2310.04807},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1090/mcom/3998}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-cos-dg-a-convex-oscillation-suppressing-framework-for-high-order-discontinuous-galerkin" class="publication-entry" data-publication-id="pub-2026-cos-dg-a-convex-oscillation-suppressing-framework-for-high-order-discontinuous-galerkin" data-year="2026">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2026.114755"><strong>COS(DG): A Convex Oscillation-Suppressing Framework for High-Order Discontinuous Galerkin Methods</strong></a>
+</div>
+<div class="publication-authors">
+H. Cao, Y. Huang, Z. Li, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2026.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2026.114755" target="_blank" rel="noopener">Paper</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-cos-dg-a-convex-oscillation-suppressing-framework-for-high-order-discontinuous-galerkin.bib" download="pub-2026-cos-dg-a-convex-oscillation-suppressing-framework-for-high-order-discontinuous-galerkin.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026cosdgaconvexoscillationsuppressingframeworkforhighorderdiscontinuousgalerkin,
+  author = {Huihui Cao and Yunqing Huang and Zhuoyun Li and Kailiang Wu},
+  title = {{COS(DG): A Convex Oscillation-Suppressing Framework for High-Order Discontinuous Galerkin Methods}},
+  journal = {Journal of Computational Physics},
+  year = {2026},
+  volume = {554},
+  pages = {114755},
+  doi = {10.1016/j.jcp.2026.114755},
+  url = {https://doi.org/10.1016/j.jcp.2026.114755}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-cos-sv-convex-oscillation-suppressing-spectral-volume-schemes-with-bound-preservation-for" class="publication-entry" data-publication-id="pub-2026-cos-sv-convex-oscillation-suppressing-spectral-volume-schemes-with-bound-preservation-for" data-year="2027">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2026.115411"><strong>COS(SV): Convex Oscillation-Suppressing Spectral Volume Schemes with Bound Preservation for Hyperbolic Conservation Laws</strong></a>
+</div>
+<div class="publication-authors">
+R. Yan, H. Cao, N. Liu*, and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2027. <span class="publication-status">Accepted</span>
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2026.115411" target="_blank" rel="noopener">Paper</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-cos-sv-convex-oscillation-suppressing-spectral-volume-schemes-with-bound-preservation-for.bib" download="pub-2026-cos-sv-convex-oscillation-suppressing-spectral-volume-schemes-with-bound-preservation-for.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026cossvconvexoscillationsuppressingspectralvolumeschemeswithboundpreservationfor,
+  author = {Ruifang Yan and Huihui Cao and Na Liu and Kailiang Wu},
+  title = {{COS(SV): Convex Oscillation-Suppressing Spectral Volume Schemes with Bound Preservation for Hyperbolic Conservation Laws}},
+  journal = {Journal of Computational Physics},
+  year = {2027},
+  volume = {568},
+  pages = {115411},
+  doi = {10.1016/j.jcp.2026.115411},
+  note = {Accepted},
+  url = {https://doi.org/10.1016/j.jcp.2026.115411}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-spectral-volume-from-a-dg-perspective-oscillation-elimination-stability" class="publication-entry" data-publication-id="pub-2024-spectral-volume-from-a-dg-perspective-oscillation-elimination-stability" data-year="2025">
+<div class="publication-title">
+<a href="https://doi.org/10.1137/24m167799x"><strong>Spectral volume from a discontinuous Galerkin perspective: oscillation elimination, stability, and optimal error estimates</strong></a>
+</div>
+<div class="publication-authors">
+Z. Li and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1137/24m167799x" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2409.10871" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-spectral-volume-from-a-dg-perspective-oscillation-elimination-stability.bib" download="pub-2024-spectral-volume-from-a-dg-perspective-oscillation-elimination-stability.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024spectralvolumefromadgperspectiveoscillationeliminationstability,
+  author = {Zhuoyun Li and Kailiang Wu},
+  title = {{Spectral volume from a discontinuous Galerkin perspective: oscillation elimination, stability, and optimal error estimates}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2025},
+  volume = {47},
+  number = {2},
+  pages = {A1304-A1333},
+  doi = {10.1137/24m167799x},
+  eprint = {2409.10871},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1137/24m167799x}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-oscillation-eliminating-central-dg-schemes-for-hyperbolic-conservation-laws" class="publication-entry" data-publication-id="pub-2025-oscillation-eliminating-central-dg-schemes-for-hyperbolic-conservation-laws" data-year="2026">
+<div class="publication-title">
+<a href="https://doi.org/10.1137/25m1730697"><strong>Oscillation-eliminating central DG schemes on Cartesian meshes for hyperbolic conservation laws</strong></a>
+</div>
+<div class="publication-authors">
+M. Peng, <strong>K. Wu</strong>*, and C. Yuan
+</div>
+<div class="publication-venue">
+<span class="publication-journal">SIAM Journal on Scientific Computing</span>, 2026.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1137/25m1730697" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2503.12473" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-oscillation-eliminating-central-dg-schemes-for-hyperbolic-conservation-laws.bib" download="pub-2025-oscillation-eliminating-central-dg-schemes-for-hyperbolic-conservation-laws.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025oscillationeliminatingcentraldgschemesforhyperbolicconservationlaws,
+  author = {Manting Peng and Kailiang Wu and Caiyou Yuan},
+  title = {{Oscillation-eliminating central DG schemes on Cartesian meshes for hyperbolic conservation laws}},
+  journal = {SIAM Journal on Scientific Computing},
+  year = {2026},
+  volume = {48},
+  number = {2},
+  pages = {A695-A725},
+  doi = {10.1137/25m1730697},
+  eprint = {2503.12473},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1137/25m1730697}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-high-order-oscillation-eliminating-hermite-weno-method-for-hyperbolic" class="publication-entry" data-publication-id="pub-2024-high-order-oscillation-eliminating-hermite-weno-method-for-hyperbolic" data-year="2024">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2024.113435"><strong>High-order oscillation-eliminating Hermite WENO method for hyperbolic conservation laws</strong></a>
+</div>
+<div class="publication-authors">
+C. Fan and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2024.113435" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2409.09632" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-high-order-oscillation-eliminating-hermite-weno-method-for-hyperbolic.bib" download="pub-2024-high-order-oscillation-eliminating-hermite-weno-method-for-hyperbolic.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024highorderoscillationeliminatinghermitewenomethodforhyperbolic,
+  author = {Chuan Fan and Kailiang Wu},
+  title = {{High-order oscillation-eliminating Hermite WENO method for hyperbolic conservation laws}},
+  journal = {Journal of Computational Physics},
+  year = {2024},
+  volume = {519},
+  pages = {113435},
+  doi = {10.1016/j.jcp.2024.113435},
+  eprint = {2409.09632},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1016/j.jcp.2024.113435}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-arxiv-2604-00301" class="publication-entry" data-publication-id="pub-arxiv-2604-00301" data-year="2026">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2604.00301"><strong>EPO: A Unified Framework for Entropy Stability, Positivity, and Oscillation Suppression</strong></a>
+</div>
+<div class="publication-authors">
+<strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">arXiv</span>, 2026. <span class="publication-status">Preprint</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2604.00301" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-arxiv-2604-00301.bib" download="pub-arxiv-2604-00301.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@misc{pubarxiv260400301,
+  author = {Kailiang Wu},
+  title = {{EPO: A Unified Framework for Entropy Stability, Positivity, and Oscillation Suppression}},
+  year = {2026},
+  eprint = {2604.00301},
+  archivePrefix = {arXiv},
+  note = {Preprint},
+  url = {https://arxiv.org/abs/2604.00301}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-arxiv-2609-26195" class="publication-entry" data-publication-id="pub-arxiv-2609-26195" data-year="2026">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2609.26195"><strong>Runge–Kutta-Aligned Oscillation Elimination: Restoring Superconvergence for Fully Discrete Shock-Capturing DG Schemes</strong></a>
+</div>
+<div class="publication-authors">
+M. Peng, Z. Li, and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">arXiv</span>, 2026. <span class="publication-status">Preprint</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2609.26195" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-arxiv-2609-26195.bib" download="pub-arxiv-2609-26195.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@misc{pubarxiv260926195,
+  author = {Manting Peng and Zhuoyun Li and Kailiang Wu},
+  title = {{Runge--Kutta-Aligned Oscillation Elimination: Restoring Superconvergence for Fully Discrete Shock-Capturing DG Schemes}},
+  year = {2026},
+  eprint = {2609.26195},
+  archivePrefix = {arXiv},
+  note = {Preprint},
+  url = {https://arxiv.org/abs/2609.26195}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-arxiv-2609-26194" class="publication-entry" data-publication-id="pub-arxiv-2609-26194" data-year="2026">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2609.26194"><strong>Compact Finite-Average-Moment Schemes with Single-Step Oscillation Elimination for Hyperbolic Conservation Laws</strong></a>
+</div>
+<div class="publication-authors">
+C. Fan and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">arXiv</span>, 2026. <span class="publication-status">Preprint</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2609.26194" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-arxiv-2609-26194.bib" download="pub-arxiv-2609-26194.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@misc{pubarxiv260926194,
+  author = {Chuan Fan and Kailiang Wu},
+  title = {{Compact Finite-Average-Moment Schemes with Single-Step Oscillation Elimination for Hyperbolic Conservation Laws}},
+  year = {2026},
+  eprint = {2609.26194},
+  archivePrefix = {arXiv},
+  note = {Preprint},
+  url = {https://arxiv.org/abs/2609.26194}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-robust-dg-schemes-on-unstructured-triangular-meshes-oscillation-elimination" class="publication-entry" data-publication-id="pub-2025-robust-dg-schemes-on-unstructured-triangular-meshes-oscillation-elimination" data-year="2025">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2409.09620"><strong>Robust DG schemes on unstructured triangular meshes: Oscillation elimination and bound preservation via optimal convex decomposition</strong></a>
+</div>
+<div class="publication-authors">
+S. Ding, S. Cui, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2409.09620" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-robust-dg-schemes-on-unstructured-triangular-meshes-oscillation-elimination.bib" download="pub-2025-robust-dg-schemes-on-unstructured-triangular-meshes-oscillation-elimination.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025robustdgschemesonunstructuredtriangularmeshesoscillationelimination,
+  author = {Shengrong Ding and Shumo Cui and Kailiang Wu},
+  title = {{Robust DG schemes on unstructured triangular meshes: Oscillation elimination and bound preservation via optimal convex decomposition}},
+  journal = {Journal of Computational Physics},
+  year = {2025},
+  eprint = {2409.09620},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2409.09620}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-uniformly-high-order-bound-preserving-oedg-schemes-for-two" class="publication-entry" data-publication-id="pub-2024-uniformly-high-order-bound-preserving-oedg-schemes-for-two" data-year="2024">
+<div class="publication-title">
+<a href="https://doi.org/10.1142/S0218202524500544"><strong>Uniformly high-order bound-preserving OEDG schemes for two-phase flows</strong></a>
+</div>
+<div class="publication-authors">
+R. Yan, R. Abgrall, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Math. Models Methods Appl. Sci. (M3AS)</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1142/S0218202524500544" target="_blank" rel="noopener">Paper</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-uniformly-high-order-bound-preserving-oedg-schemes-for-two.bib" download="pub-2024-uniformly-high-order-bound-preserving-oedg-schemes-for-two.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024uniformlyhighorderboundpreservingoedgschemesfortwo,
+  author = {R. Yan and R. Abgrall and K. Wu},
+  title = {{Uniformly high-order bound-preserving OEDG schemes for two-phase flows}},
+  journal = {Math. Models Methods Appl. Sci. (M3AS)},
+  year = {2024},
+  doi = {10.1142/S0218202524500544},
+  url = {https://doi.org/10.1142/S0218202524500544}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-structure-preserving-oscillation-eliminating-discontinuous-galerkin-schemes-for-ideal" class="publication-entry" data-publication-id="pub-2025-structure-preserving-oscillation-eliminating-discontinuous-galerkin-schemes-for-ideal" data-year="2025">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2404.16794"><strong>Structure-preserving oscillation-eliminating discontinuous Galerkin schemes for ideal MHD equations: Locally divergence-free and positivity-preserving</strong></a>
+</div>
+<div class="publication-authors">
+M. Liu and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2404.16794" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-structure-preserving-oscillation-eliminating-discontinuous-galerkin-schemes-for-ideal.bib" download="pub-2025-structure-preserving-oscillation-eliminating-discontinuous-galerkin-schemes-for-ideal.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025structurepreservingoscillationeliminatingdiscontinuousgalerkinschemesforideal,
+  author = {Mengqing Liu and Kailiang Wu},
+  title = {{Structure-preserving oscillation-eliminating discontinuous Galerkin schemes for ideal MHD equations: Locally divergence-free and positivity-preserving}},
+  journal = {Journal of Computational Physics},
+  year = {2025},
+  eprint = {2404.16794},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2404.16794}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-robust-discontinuous-galerkin-methods-maintaining-physical-constraints-for-general" class="publication-entry" data-publication-id="pub-2025-robust-discontinuous-galerkin-methods-maintaining-physical-constraints-for-general" data-year="2025">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2410.05000"><strong>Robust discontinuous Galerkin methods maintaining physical constraints for general relativistic hydrodynamics</strong></a>
+</div>
+<div class="publication-authors">
+H. Cao, M. Peng, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2410.05000" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-robust-discontinuous-galerkin-methods-maintaining-physical-constraints-for-general.bib" download="pub-2025-robust-discontinuous-galerkin-methods-maintaining-physical-constraints-for-general.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025robustdiscontinuousgalerkinmethodsmaintainingphysicalconstraintsforgeneral,
+  author = {Huihui Cao and Manting Peng and Kailiang Wu},
+  title = {{Robust discontinuous Galerkin methods maintaining physical constraints for general relativistic hydrodynamics}},
+  journal = {Journal of Computational Physics},
+  year = {2025},
+  eprint = {2410.05000},
+  archivePrefix = {arXiv},
+  url = {https://arxiv.org/abs/2410.05000}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2025-constraint-preserving-high-order-compact-oedg-method-for-spherically-symmetric-einstein-euler" class="publication-entry" data-publication-id="pub-2025-constraint-preserving-high-order-compact-oedg-method-for-spherically-symmetric-einstein-euler" data-year="2025">
+<div class="publication-title">
+<a href="https://doi.org/10.4208/cmr.2025-0052"><strong>Constraint-Preserving High-Order Compact OEDG Method for Spherically Symmetric Einstein-Euler System</strong></a>
+</div>
+<div class="publication-authors">
+Y. Huang, M. Peng, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Communications in Mathematical Research</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.4208/cmr.2025-0052" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2512.03496" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2025-constraint-preserving-high-order-compact-oedg-method-for-spherically-symmetric-einstein-euler.bib" download="pub-2025-constraint-preserving-high-order-compact-oedg-method-for-spherically-symmetric-einstein-euler.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2025constraintpreservinghighordercompactoedgmethodforsphericallysymmetriceinsteineuler,
+  author = {Yuchen Huang and Manting Peng and Kailiang Wu},
+  title = {{Constraint-Preserving High-Order Compact OEDG Method for Spherically Symmetric Einstein-Euler System}},
+  journal = {Communications in Mathematical Research},
+  year = {2025},
+  volume = {41},
+  number = {4},
+  pages = {370--414},
+  doi = {10.4208/cmr.2025-0052},
+  eprint = {2512.03496},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.4208/cmr.2025-0052}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-oscillation-eliminating-discontinuous-galerkin-methods-for-multicomponent-chemically-reacting-flows" class="publication-entry" data-publication-id="pub-2024-oscillation-eliminating-discontinuous-galerkin-methods-for-multicomponent-chemically-reacting-flows" data-year="2024">
+<div class="publication-title">
+<a href="https://doi.org/10.4208/aam.oa-2024-0029"><strong>Oscillation-eliminating discontinuous Galerkin methods for multicomponent chemically reacting flows</strong></a>
+</div>
+<div class="publication-authors">
+J. Du, C. Fan, and <strong>K. Wu</strong>
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Annals of Applied Mathematics</span>, 2024.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.4208/aam.oa-2024-0029" target="_blank" rel="noopener">Paper</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-oscillation-eliminating-discontinuous-galerkin-methods-for-multicomponent-chemically-reacting-flows.bib" download="pub-2024-oscillation-eliminating-discontinuous-galerkin-methods-for-multicomponent-chemically-reacting-flows.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024oscillationeliminatingdiscontinuousgalerkinmethodsformulticomponentchemicallyreactingflows,
+  author = {J. Du and C. Fan and K. Wu},
+  title = {{Oscillation-eliminating discontinuous Galerkin methods for multicomponent chemically reacting flows}},
+  journal = {Annals of Applied Mathematics},
+  year = {2024},
+  volume = {40},
+  pages = {412-444},
+  doi = {10.4208/aam.oa-2024-0029},
+  url = {https://doi.org/10.4208/aam.oa-2024-0029}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2024-bound-preserving-oedg-method-for-aw-rascle-zhang-traffic" class="publication-entry" data-publication-id="pub-2024-bound-preserving-oedg-method-for-aw-rascle-zhang-traffic" data-year="2025">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2024.113507"><strong>Bound-preserving OEDG schemes for Aw–Rascle–Zhang traffic models on networks</strong></a>
+</div>
+<div class="publication-authors">
+W. Chen, S. Cui, <strong>K. Wu</strong>, and T. Xiong
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2025.
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2024.113507" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2409.16269" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2024-bound-preserving-oedg-method-for-aw-rascle-zhang-traffic.bib" download="pub-2024-bound-preserving-oedg-method-for-aw-rascle-zhang-traffic.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2024boundpreservingoedgmethodforawrasclezhangtraffic,
+  author = {Wei Chen and Shumo Cui and Kailiang Wu and Tao Xiong},
+  title = {{Bound-preserving OEDG schemes for Aw--Rascle--Zhang traffic models on networks}},
+  journal = {Journal of Computational Physics},
+  year = {2025},
+  volume = {520},
+  pages = {113507},
+  doi = {10.1016/j.jcp.2024.113507},
+  eprint = {2409.16269},
+  archivePrefix = {arXiv},
+  url = {https://doi.org/10.1016/j.jcp.2024.113507}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-provably-positivity-preserving-globally-divergence-free-central-dg-methods-for-ideal-mhd" class="publication-entry" data-publication-id="pub-2026-provably-positivity-preserving-globally-divergence-free-central-dg-methods-for-ideal-mhd" data-year="2026">
+<div class="publication-title">
+<a href="https://arxiv.org/abs/2508.08913"><strong>Provably positivity-preserving, globally divergence-free central DG methods for ideal MHD system</strong></a>
+</div>
+<div class="publication-authors">
+R. Yan, H. Cao, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Math. Models Methods Appl. Sci. (M3AS)</span>, 2026. <span class="publication-status">Accepted</span>
+</div>
+<div class="publication-tools"><a href="https://arxiv.org/abs/2508.08913" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-provably-positivity-preserving-globally-divergence-free-central-dg-methods-for-ideal-mhd.bib" download="pub-2026-provably-positivity-preserving-globally-divergence-free-central-dg-methods-for-ideal-mhd.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026provablypositivitypreservinggloballydivergencefreecentraldgmethodsforidealmhd,
+  author = {Ruifang Yan and Huihui Cao and Kailiang Wu},
+  title = {{Provably positivity-preserving, globally divergence-free central DG methods for ideal MHD system}},
+  journal = {Math. Models Methods Appl. Sci. (M3AS)},
+  year = {2026},
+  eprint = {2508.08913},
+  archivePrefix = {arXiv},
+  note = {Accepted},
+  url = {https://arxiv.org/abs/2508.08913}
+}</code></pre></div></details></div>
+</div>
+<div id="pub-2026-an-active-flux-type-scheme-for-ideal-mhd-with-provable-positivity-and" class="publication-entry" data-publication-id="pub-2026-an-active-flux-type-scheme-for-ideal-mhd-with-provable-positivity-and" data-year="2026">
+<div class="publication-title">
+<a href="https://doi.org/10.1016/j.jcp.2026.115319"><strong>An active-flux-type scheme for ideal MHD with provable positivity and a point-value-level discrete divergence-free constraint</strong></a>
+</div>
+<div class="publication-authors">
+M. Liu, D. Pang, R. Abgrall, and <strong>K. Wu</strong>*
+</div>
+<div class="publication-venue">
+<span class="publication-journal">Journal of Computational Physics</span>, 2026. <span class="publication-status">In press</span>
+</div>
+<div class="publication-tools"><a href="https://doi.org/10.1016/j.jcp.2026.115319" target="_blank" rel="noopener">Paper</a>
+<a href="https://arxiv.org/abs/2510.19721" target="_blank" rel="noopener">arXiv</a>
+<details class="bibtex-disclosure"><summary>BibTeX</summary><div class="bibtex-panel"><div class="bibtex-controls"><button type="button" class="copy-bibtex">Copy BibTeX</button><a href="assets/bibtex/pub-2026-an-active-flux-type-scheme-for-ideal-mhd-with-provable-positivity-and.bib" download="pub-2026-an-active-flux-type-scheme-for-ideal-mhd-with-provable-positivity-and.bib">Download .bib</a><span class="bibtex-copy-status" role="status" aria-live="polite"></span></div><pre><code>@article{pub2026anactivefluxtypeschemeforidealmhdwithprovablepositivityand,
+  author = {Mengqing Liu and Dongwen Pang and Remi Abgrall and Kailiang Wu},
+  title = {{An active-flux-type scheme for ideal MHD with provable positivity and a point-value-level discrete divergence-free constraint}},
+  journal = {Journal of Computational Physics},
+  year = {2026},
+  doi = {10.1016/j.jcp.2026.115319},
+  eprint = {2510.19721},
+  archivePrefix = {arXiv},
+  note = {In press},
+  url = {https://doi.org/10.1016/j.jcp.2026.115319}
+}</code></pre></div></details></div>
+</div>
+</div>
+
+
+</section>
+
+</main> 
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kailiang-wu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> 
+<script src="publication-tools.js?v=20260929-1" defer=""></script>
+<script src="translations-zh.js?v=20261001-35" defer=""></script>
+<script src="language-switch.js?v=20260924-12" defer=""></script>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
