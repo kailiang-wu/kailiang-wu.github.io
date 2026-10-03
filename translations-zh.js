@@ -354,6 +354,8 @@ window.KW_TRANSLATIONS = {
     "ANI schematic: model discrepancy, alternating prior-corrector coupling, and corrected dynamics": "ANI示意图：模型偏差、先验模拟器与神经校正器交替耦合及校正后的动力学"
   },
   "blocks": {
+    "We welcomed Bingxin Wang as a Ph.D. student and Wen Huang, Hailin Wang, Junqi Tu, and Yuanyuan Wei as master’s students.": "我们欢迎 <strong>Bingxin Wang</strong> 作为博士生，以及 <strong>Wen Huang</strong>、<strong>Hailin Wang</strong>、<strong>Junqi Tu</strong> 和 <strong>Yuanyuan Wei</strong> 作为硕士生加入团队。",
+    "We welcomed Shimin Liang to the group as a postdoctoral fellow.": "我们欢迎 <strong>Shimin Liang</strong> 作为博士后加入团队。",
     "Yuanyuan Wei — September 2026–Present. Master’s student. B.Sc., Southern University of Science and Technology.": "<strong>Yuanyuan Wei</strong> — 2026年9月至今。<br>\n硕士生。本科毕业于南方科技大学。",
     "Dr. Shimin Liang — July 2026–Present. Ph.D., Xiangtan University.": "<strong>Dr. Shimin Liang</strong> — 2026年7月至今。<br>\n博士毕业于湘潭大学。",
     "Bingxin Wang — September 2026–Present. Ph.D. student. B.Sc., Jilin University.": "<strong>Bingxin Wang</strong> — 2026年9月至今。<br>\n博士生。本科毕业于吉林大学。",
