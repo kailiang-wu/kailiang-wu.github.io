@@ -69,6 +69,7 @@ h1 { color: var(--blue-deep); font-size: var(--type-page-title); margin: 28px 0 
 h2 { color: var(--blue-deep); font-size: var(--type-section-title); margin: 36px 0 18px; padding-bottom: 10px; border-bottom: var(--line-width) solid var(--line); }
 h3 { font-size: var(--type-subsection-title); margin: 24px 0 12px; }
 strong, b, .table th { font-weight: var(--weight-strong); }
+#research-group strong a { color: inherit; font-weight: var(--weight-strong); text-decoration-color: currentColor; }
 p { margin: 0 0 14px; }
 #welcome { --leading-body: 1.5; line-height: var(--leading-body); }
 #welcome > p { max-width: none; font-size: 18px; margin-bottom: 10px; text-align: justify; text-align-last: left; hyphens: manual; }

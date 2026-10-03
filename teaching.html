@@ -59,7 +59,7 @@ ul.task-list li input[type="checkbox"] {
 <meta name="color-scheme" content="light">
 
 
-<link rel="stylesheet" href="styles.css?v=20261001-4">
+<link rel="stylesheet" href="styles.css?v=20261003-2">
 </head>
 
 <body class="fullcontent quarto-light">
@@ -264,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/kailiang-wu\.github\.io");
+        var filterRegex = new RegExp("^(?:https://kailiang-wu\.github\.io/|https?://(?:localhost|127\.0\.0\.1)(?::[0-9]+)?/)");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -598,8 +598,8 @@ ul.task-list li input[type="checkbox"] {
   </script>
 </div> 
 <script src="publication-tools.js?v=20260929-1" defer=""></script>
-<script src="translations-zh.js?v=20261001-51" defer=""></script>
-<script src="language-switch.js?v=20261001-3" defer=""></script>
+<script src="translations-zh.js?v=20261003-9" defer=""></script>
+<script src="language-switch.js?v=20261003-2" defer=""></script>
 
 
 

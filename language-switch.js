@@ -3,6 +3,13 @@
   'use strict';
   const catalog = window.KW_TRANSLATIONS;
   if (!catalog) return;
+  const loadedUrl = new URL(location.href);
+  const script = document.querySelector('script[src*="language-switch.js"]');
+  const siteRoot = new URL('.', script.src);
+  // Pin relative resources while switching paths in place (including lazy images).
+  const base = document.createElement('base');
+  base.href = loadedUrl.href;
+  document.head.prepend(base);
   const normalize = value => value.replace(/\s+/g, ' ').trim();
   const ignored = 'script, style, code, pre, noscript, [data-no-translate], #title-block-header, .publication-title, .publication-authors, .publication-journal, .bibtex-copy-status';
   const blockRecords = [];
@@ -77,23 +84,33 @@
     }
   }
 
-  function remember(value) {
-    try { localStorage.setItem('kw-site-language', value); } catch (_) { /* Offline/private browsing still works. */ }
-  }
   function preferredLanguage() {
     const parameter = new URL(location.href).searchParams.get('lang');
-    if (parameter === 'en' || parameter === 'zh') return parameter;
-    try { return localStorage.getItem('kw-site-language') === 'zh' ? 'zh' : 'en'; } catch (_) { return 'en'; }
+    if (parameter === 'ch' || parameter === 'zh') return 'zh';
+    if (parameter === 'en') return 'en';
+    return location.pathname.startsWith(siteRoot.pathname + 'ch/') ? 'zh' : 'en';
+  }
+  function languageUrl(url) {
+    if (url.origin !== siteRoot.origin || url.protocol !== siteRoot.protocol || !url.pathname.startsWith(siteRoot.pathname)) return url;
+    let page = url.pathname.slice(siteRoot.pathname.length).replace(/^ch\//, '');
+    if (page && !/^[^/]+\.html$/.test(page)) return url;
+    if (page === 'index.html' && url.protocol !== 'file:') page = '';
+    url.pathname = siteRoot.pathname + (language === 'zh' ? 'ch/' : '') + page;
+    url.searchParams.delete('lang');
+    return url;
   }
   function updateInternalLinks() {
     for (const anchor of document.querySelectorAll('a[href]')) {
       const href = anchor.getAttribute('href');
-      if (!href || href.startsWith('#') || anchor.hasAttribute('download')) continue;
+      if (!href || anchor.hasAttribute('download')) continue;
+      if (href.startsWith('#')) {
+        const target = new URL(location.href);
+        target.hash = href;
+        anchor.href = target.href;
+        continue;
+      }
       const target = new URL(href, document.baseURI);
-      if (target.origin !== location.origin || target.protocol !== location.protocol) continue;
-      if (!target.pathname.endsWith('.html') && !target.pathname.endsWith('/')) continue;
-      target.searchParams.set('lang', language);
-      anchor.href = target.href;
+      anchor.href = languageUrl(target).href;
     }
   }
   function applyLanguage(value, updateUrl) {
@@ -109,11 +126,11 @@
     for (const status of document.querySelectorAll('.bibtex-copy-status')) status.textContent = '';
     const heading = document.querySelector('main > section > h1');
     document.title = language === 'zh' ? (heading ? heading.textContent : '学术主页') + ' | 吴开亮' : originalTitle;
-    remember(language);
     if (updateUrl) {
-      const url = new URL(location.href);
-      url.searchParams.set('lang', language);
-      try { history.replaceState(history.state, '', url); } catch (_) { /* File previews can restrict History API. */ }
+      const url = languageUrl(new URL(location.href));
+      if (url.href !== location.href) {
+        try { history.replaceState(history.state, '', url); } catch (_) { /* File previews can restrict History API. */ }
+      }
     }
     updateInternalLinks();
     document.dispatchEvent(new CustomEvent('site-language-change', {detail: {language}}));
@@ -123,5 +140,6 @@
     const button = event.target.closest('button[data-language]');
     if (button) applyLanguage(button.dataset.language, true);
   });
-  applyLanguage(preferredLanguage(), false);
+  window.addEventListener('popstate', () => applyLanguage(preferredLanguage(), true));
+  applyLanguage(preferredLanguage(), true);
 })();
