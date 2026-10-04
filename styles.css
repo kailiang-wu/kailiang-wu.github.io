@@ -42,11 +42,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: var(--li
 /* A shared left edge and a quiet horizontal navigation establish the page. */
 .site-header { margin: 0; padding: 42px 0 28px; display: grid; grid-template-columns: 116px minmax(0,1fr); align-items: center; column-gap: 40px; }
 .identity { min-width: 0; }
-.identity-name { display: inline-block; font-family: var(--font-heading); font-size: 42px; font-weight: var(--weight-heading); letter-spacing: -.65px; color: var(--ink); line-height: 1.25; margin-bottom: 13px; text-decoration: none; }
+.identity-name { display: block; text-align: center; font-family: var(--font-heading); font-size: 42px; font-weight: var(--weight-heading); letter-spacing: -.65px; color: var(--ink); line-height: 1.25; margin-bottom: 13px; text-decoration: none; }
 .identity-name:hover { text-decoration: none; }
 .chinese-name { display: inline-block; font-family: var(--font-heading); font-size: 24px; margin-left: 17px; font-weight: var(--weight-body); letter-spacing: 2px; white-space: nowrap; }
-.position { color: var(--blue-deep); font-size: var(--type-small); font-weight: var(--weight-heading); line-height: 1.5; margin: 0 0 10px; }
-.affiliation { font-size: 16px; line-height: 1.5; margin: 0; text-wrap: balance; }
+.position { text-align: center; color: var(--blue-deep); font-size: var(--type-small); font-weight: var(--weight-heading); line-height: 1.5; margin: 0 0 10px; }
+.affiliation { text-align: center; font-size: 16px; line-height: 1.5; margin: 0; text-wrap: balance; }
 .profile-location { color: var(--muted); font-size: var(--type-small); line-height: 1.5; margin: 6px 0 0; }
 .portrait { display: block; width: 116px; height: auto; aspect-ratio: 4 / 5; flex-shrink: 0; border-radius: 0; }
 .header-contact { font-size: var(--type-small); line-height: var(--leading-body); margin: 8px 0 0; }
@@ -56,6 +56,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: var(--li
 .profile-address strong { display: inline-block; margin-bottom: 3px; color: var(--ink); }
 .site-nav { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 42px; margin: 0; border-bottom: var(--line-width) solid var(--line); padding: 0 0 12px; }
 .site-nav-links { display: contents; }
+html[lang="zh-CN"] .site-nav-links > a[data-page="news"] { display: none; }
 .nav-toggle { display: none; }
 .nav-icon-close { display: none; }
 .nav-toggle[aria-expanded="true"] .nav-icon-open { display: none; }
@@ -381,10 +382,12 @@ html[lang="zh-CN"] .identity-name { letter-spacing: 2px; }
 .bibtex-panel code { color: var(--ink); white-space: inherit; user-select: text; }
 .paper-text { min-width: 0; }
 @media screen and (min-width:1101px) {
-  :root { --profile-width: 280px; --profile-gap: 32px; }
-  .site-header { padding: 20px; border: 1px solid var(--soft-line); border-top: 3px solid var(--blue); border-radius: 8px; background: var(--panel-surface); }
-  .site-header .identity-name { font-size: 35px; letter-spacing: -.5px; }
-  .site-header .portrait { box-shadow: 0 2px 8px #103e7312; }
+  :root { --profile-width: 250px; --profile-gap: 32px; }
+  .site-header { padding: 18px; border: 1px solid var(--soft-line); border-top: 3px solid var(--blue); border-radius: 8px; background: var(--panel-surface); }
+  .site-header .identity-name { font-size: 33px; letter-spacing: -.5px; }
+  .site-header .affiliation { font-size: 15px; }
+  .site-header .portrait { width: 185px; box-shadow: 0 2px 8px #103e7312; }
+  .site-header .header-contact { font-size: 16px; }
 }
 @media(max-width:500px) {
   .publication-tools { clear: both; gap: 7px 16px; }

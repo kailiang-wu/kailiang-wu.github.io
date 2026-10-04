@@ -90,12 +90,16 @@
     if (parameter === 'en') return 'en';
     return location.pathname.startsWith(siteRoot.pathname + 'ch/') ? 'zh' : 'en';
   }
-  function languageUrl(url) {
+  function languageUrl(url, redirectNews = false) {
     if (url.origin !== siteRoot.origin || url.protocol !== siteRoot.protocol || !url.pathname.startsWith(siteRoot.pathname)) return url;
     let page = url.pathname.slice(siteRoot.pathname.length).replace(/^ch\//, '');
     if (page && !/^[^/]+\.html$/.test(page)) return url;
+    if (redirectNews && language === 'zh' && page === 'news.html') {
+      page = 'index.html';
+      url.hash = '';
+    }
     if (page === 'index.html' && url.protocol !== 'file:') page = '';
-    url.pathname = siteRoot.pathname + (language === 'zh' ? 'ch/' : '') + page;
+    url.pathname = siteRoot.pathname + (language === 'zh' && page !== 'news.html' ? 'ch/' : '') + page;
     url.searchParams.delete('lang');
     return url;
   }
@@ -115,6 +119,10 @@
   }
   function applyLanguage(value, updateUrl) {
     language = value === 'zh' ? 'zh' : 'en';
+    if (language === 'zh' && loadedUrl.pathname.endsWith('/news.html')) {
+      location.replace(languageUrl(new URL(location.href), true).href);
+      return;
+    }
     document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
     for (const record of blockRecords) record.element.innerHTML = record[language];
     for (const record of textRecords) record.node.nodeValue = record[language];
