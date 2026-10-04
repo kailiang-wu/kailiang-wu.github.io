@@ -329,8 +329,7 @@ window.KW_TRANSLATIONS = {
     "2024 Beijing–Tianjin–Hebei+ Conference on Computational Mathematics": "2024年京津冀+计算数学学术交流会",
     "Plenary Speaker, 2024 Beijing–Tianjin–Hebei+ Conference on Computational Mathematics": "大会报告人，2024年京津冀+计算数学学术交流会",
     "Inner Mongolia · Aug. 22–25, 2024": "内蒙古 · 2024年8月22–25日",
-    "Invited Speaker": "特邀报告人",
-    "International Conference on Applied Mathematics": "国际应用数学会议",
+    "Invited Speaker, International Conference on Applied Mathematics": "特邀报告人，国际应用数学会议",
     "Hong Kong · May 30–June 3, 2023": "中国香港 · 2023年5月30日–6月3日",
     "Research Assistant Professors (3)": "研究助理教授（3人）",
     "Dr. Shumo Cui": "崔书墨博士",
@@ -361,7 +360,6 @@ window.KW_TRANSLATIONS = {
     "ANI schematic: model discrepancy, alternating prior-corrector coupling, and corrected dynamics": "ANI示意图：模型偏差、先验模拟器与神经校正器交替耦合及校正后的动力学"
   },
   "blocks": {
-    "Invited Speaker, International Conference on Applied Mathematics Hong Kong · May 30–June 3, 2023": "<strong>Invited Speaker</strong>，国际应用数学会议<br>\n<span class=\"activity-meta\">中国香港 · 2023年5月30日–6月3日</span>",
     "Dr. Chaoyi Cai — August 2026–September 2026. Visiting postdoctoral fellow from the Institute of Applied Physics and Computational Mathematics.": "<strong>Dr. Chaoyi Cai</strong> — 2026年8月–9月。<br>\n来自北京应用物理与计算数学研究所的访问博士后。",
     "Our work on optimal cell average decomposition for high-order bound-preserving schemes of hyperbolic conservation laws was published online in SIAM Journal on Numerical Analysis.": "我们关于双曲守恒律高阶保界格式<strong>最优单元平均分解</strong>的研究在线发表于 <em>SIAM Journal on Numerical Analysis</em>。",
     "I gave a plenary talk at the 21st National Conference on Numerical Methods for Fluid Dynamics, held on Aug. 6–9, 2025 at Yili, Xinjiang. The talk is about “Structure-Preserving Computation and Evolution Learning”.": "我在<strong>第二十一届全国流体力学数值方法会议</strong>上作了大会报告，会议于2025年8月6–9日在新疆伊犁举行。报告题目为“结构保持计算与演化学习”。",

@@ -82,6 +82,7 @@ p { margin: 0 0 14px; }
 .academic-list ul { margin: 0; padding-left: 1.25em; }
 .academic-list li { padding-left: .15em; margin-bottom: 10px; }
 .academic-list li:last-child { margin-bottom: 0; }
+html[lang="en"] .honors-list li:has(.ch-only-honor) { display: none; }
 .activity-meta, .activity-detail { color: var(--muted); font-size: var(--type-small); }
 .grant-list .grant-name { font-weight: 500; }
 .grant-list .grant-details, .grant-list .activity-meta, .grant-list .activity-detail { color: #515861; font-size: inherit; font-weight: 400; }
