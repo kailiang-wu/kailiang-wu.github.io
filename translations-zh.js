@@ -59,7 +59,7 @@ window.KW_TRANSLATIONS = {
     "Selected journals and conferences:": "曾为以下期刊与会议审稿（部分）：",
     "News": "动态",
     "Contact": "联系",
-    "Welcome": "欢迎",
+    "Biography": "简介",
     "Research Interests": "研究方向",
     "Machine Learning and Data-Driven Modeling": "机器学习与数据驱动建模",
     "Nonlinear Stability and Structure Preservation": "非线性稳定性与结构保持",

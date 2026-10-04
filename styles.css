@@ -10,6 +10,7 @@
   --line-width: 1px;
   --content-width: 860px;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", "PingFang SC", sans-serif;
+  --font-prose: Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
   --font-heading: Georgia, "Times New Roman", "Songti SC", "Noto Serif SC", serif;
   --type-body: 20px;
   --type-small: 17px;
@@ -30,6 +31,7 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: #fff; color: var(--ink); font-family: var(--font-body); font-size: var(--type-body); font-weight: var(--weight-body); line-height: var(--leading-body); }
+:where(#quarto-document-content section.level1) :where(p, li, td, blockquote, .publication-authors, .publication-venue) { font-family: var(--font-prose); }
 a { color: var(--blue); text-decoration-line: underline; text-decoration-thickness: var(--line-width); text-underline-offset: 4px; text-decoration-color: var(--line); }
 a:hover { color: var(--blue-deep); }
 a:focus-visible, button:focus-visible, summary:focus-visible { outline: var(--line-width) solid var(--line); outline-offset: 4px; }
@@ -54,6 +56,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: var(--li
 .profile-address { grid-column: 2; min-width: 0; margin: 12px 0 0; color: var(--muted); font-size: 15px; font-style: normal; line-height: 1.5; }
 .profile-address p { margin: 0; }
 .profile-address strong { display: inline-block; margin-bottom: 3px; color: var(--ink); }
+html[lang="en"] .profile-address strong { font-family: Arial, sans-serif; }
 .site-nav { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 42px; margin: 0; border-bottom: var(--line-width) solid var(--line); padding: 0 0 12px; }
 .site-nav-links { display: contents; }
 html[lang="zh-CN"] .site-nav-links > a[data-page="news"] { display: none; }
@@ -66,6 +69,7 @@ html[lang="zh-CN"] .site-nav-links > a[data-page="news"] { display: none; }
 .site-nav a[aria-current="page"] { font-weight: var(--weight-strong); text-decoration-line: underline; text-underline-offset: 8px; }
 
 h1, h2, h3 { font-family: var(--font-heading); color: var(--ink); font-weight: var(--weight-heading); line-height: var(--leading-heading); }
+html[lang="zh-CN"] #quarto-document-content section :is(h1, h2, h3, .page-subtitle) { font-family: "Microsoft YaHei", "微软雅黑", sans-serif; }
 h1 { color: var(--blue-deep); font-size: var(--type-page-title); margin: 28px 0 20px; letter-spacing: -.3px; }
 h2 { color: var(--blue-deep); font-size: var(--type-section-title); margin: 36px 0 18px; padding-bottom: 10px; border-bottom: var(--line-width) solid var(--line); }
 h3 { font-size: var(--type-subsection-title); margin: 24px 0 12px; }
