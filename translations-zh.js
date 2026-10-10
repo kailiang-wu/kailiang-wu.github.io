@@ -218,6 +218,7 @@ window.KW_TRANSLATIONS = {
     "Numerical solutions of partial differential equations; structure-preserving high-order methods; hyperbolic conservation laws; computational fluid dynamics and astrophysics; machine learning and data-driven modeling; approximation theory and uncertainty quantification.": "偏微分方程数值解；保结构高阶方法；双曲守恒律；计算流体力学与天体物理；机器学习与数据驱动建模；逼近理论与不确定性量化。",
     "Selected honors": "部分荣誉",
     "Honors and Awards": "荣誉与奖励",
+    "· Youth Science Award of Applied Mathematics, CSIAM.": "· 中国工业与应用数学学会（CSIAM）应用数学青年科技奖。",
     "· Guangdong Provincial Science and Technology Award — Youth Science and Technology Innovation Award.": "· 广东省科学技术奖——青年科技创新奖。",
     "· SUSTech President’s Research Award; SUSTech Young Professor Award.": "· 南方科技大学校长科研奖；青年教授奖。",
     "· Zhong Jiaqing Mathematics Award, Chinese Mathematical Society.": "· 中国数学会钟家庆数学奖。",
