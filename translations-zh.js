@@ -368,7 +368,7 @@ window.KW_TRANSLATIONS = {
     "Qirui Huang — September 2026–Present. Master’s student. B.Sc., Southern University of Science and Technology.": "<strong>Qirui Huang</strong> — 2026年9月至今。<br>\n硕士生。本科毕业于南方科技大学。",
     "Welcome Bingxin Wang as a Ph.D. student and Qirui Huang, Wen Huang, Junqi Tu, Hailin Wang, and Yuanyuan Wei as master’s students.": "我们欢迎 <strong>Bingxin Wang</strong> 作为博士生，以及 <strong>Qirui Huang</strong>、<strong>Wen Huang</strong>、<strong>Junqi Tu</strong>、<strong>Hailin Wang</strong> 和 <strong>Yuanyuan Wei</strong> 作为硕士生加入团队。",
     "Welcome Shimin Liang to the group as a postdoctoral fellow.": "我们欢迎 <strong>Shimin Liang</strong> 作为博士后加入团队。",
-    "Welcome Daopeng Yin to the group as a postdoctoral fellow.": "我们欢迎 <strong><a data-link=\"0\">Daopeng Yin</a></strong> 作为博士后加入团队。",
+    "Welcome Daopeng Yin as a postdoctoral fellow.": "我们欢迎 <strong><a data-link=\"0\">Daopeng Yin</a></strong> 作为博士后加入团队。",
     "Yuanyuan Wei — September 2026–Present. Master’s student. B.Sc., Southern University of Science and Technology.": "<strong>Yuanyuan Wei</strong> — 2026年9月至今。<br>\n硕士生。本科毕业于南方科技大学。",
     "Dr. Shimin Liang — July 2026–Present. Ph.D., Xiangtan University.": "<strong>Dr. Shimin Liang</strong> — 2026年7月至今。<br>\n博士毕业于湘潭大学。",
     "Dr. Daopeng Yin — October 2026–Present. Ph.D., Xi’an Jiaotong University.": "<strong><a data-link=\"0\">Dr. Daopeng Yin</a></strong> — 2026年10月至今。<br>\n博士毕业于西安交通大学。",
