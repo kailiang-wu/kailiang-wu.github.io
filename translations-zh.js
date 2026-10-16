@@ -589,6 +589,6 @@ window.KW_TRANSLATIONS = {
     "Local co-organizer (with Prof. Alexander Kurganov), International Workshop on Development of High-Order Methods for Hyperbolic PDEs, SUSTech (March 15–19, 2024).": "本地共同组织者（与 Alexander Kurganov 教授共同组织），双曲偏微分方程高阶方法发展国际研讨会，南方科技大学（2024年3月15–19日）。",
     "Local co-organizer (with Prof. Alexander Kurganov), International Workshop on Recent Advances in Numerical Methods for Hyperbolic Conservation Laws, SUSTech (December 9–15, 2023).": "本地共同组织者（与 Alexander Kurganov 教授共同组织），双曲守恒律数值方法最新进展国际研讨会，南方科技大学（2023年12月9–15日）。",
     "Co-organizer (with Dr. Huihui Cao, Prof. Huazhong Tang, Dr. Jie Xu, and Dr. Caiyou Yuan), Workshop on Frontiers in Scientific Computing and Numerical Analysis, SUSTech (September 4–7, 2026).": "共同组织者（与 Huihui Cao 博士、Huazhong Tang 教授、Jie Xu 博士及 Caiyou Yuan 博士共同组织），科学计算与数值分析前沿研讨会，南方科技大学（2026年9月4–7日）。",
-    "Local co-organizer (with Prof. Alina Chertock and Prof. Alexander Kurganov), Workshop on High-Order and Adaptive Schemes for Nonlinear Hyperbolic PDEs (October 17–19, 2026).": "本地共同组织者（与 Alina Chertock 教授及 Alexander Kurganov 教授共同组织），非线性双曲偏微分方程高阶与自适应格式研讨会（2026年10月17–19日）。"
+    "Co-organizer (with Prof. Alina Chertock and Prof. Alexander Kurganov), Workshop on High-Order and Adaptive Schemes for Nonlinear Hyperbolic PDEs (October 17–19, 2026).": "共同组织者（与 Alina Chertock 教授及 Alexander Kurganov 教授共同组织），非线性双曲偏微分方程高阶与自适应格式研讨会（2026年10月17–19日）。"
   }
 };
