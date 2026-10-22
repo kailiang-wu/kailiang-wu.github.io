@@ -356,7 +356,7 @@ window.KW_TRANSLATIONS = {
     "Thesis Advisor (22 students)": "毕业论文指导教师（22人）",
     "College Mentor (16 students)": "书院导师（16人）",
     "Software": "软件",
-    "— Associate Editor.": "— 副主编。",
+    "— Associate Editor.": "— Associate Editor。",
     "Conference Organization": "学术会议组织",
     "ANI schematic: model discrepancy, alternating prior-corrector coupling, and corrected dynamics": "ANI示意图：模型偏差、先验模拟器与神经校正器交替耦合及校正后的动力学"
   },
